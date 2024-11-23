@@ -1,0 +1,22 @@
+.button-active, .button-disabled {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 3rem;
+    width: 3rem;
+
+    border: 3px solid;
+    border-color: var(--text-main);
+    border-radius: 999px;
+
+    font-size: 1.5rem;
+}
+
+.button-active {
+    cursor: pointer;
+}
+
+.button-disabled {
+    border-color: var(--text-faded);
+}

@@ -1,12 +1,21 @@
 import React from 'react';
-import './App.css';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {BrowserRouter, Outlet, Route, Routes} from 'react-router-dom';
+import PickActivity from './pages/PickActivity';
 
-function App() {
+const App = () => {
   return (
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<p></p>} />
+          <Route path='/' element={
+              <div className='bg-container'>
+                  <div className='body-container'>
+                      <Outlet />
+                  </div>
+              </div>
+          }>
+              <Route index element={<PickActivity/>}/>
+              <Route path='/pick-an-activity' element={<PickActivity/>}/>
+          </Route>
         </Routes>
       </BrowserRouter>
   );
