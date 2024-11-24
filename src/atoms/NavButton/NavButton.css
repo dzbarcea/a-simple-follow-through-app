@@ -1,4 +1,4 @@
-.button-active, .button-disabled {
+.nav-button-active, .nav-button-disabled {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -13,10 +13,10 @@
     font-size: 1.5rem;
 }
 
-.button-active {
+.nav-button-active {
     cursor: pointer;
 }
 
-.button-disabled {
+.nav-button-disabled {
     border-color: var(--text-faded);
 }

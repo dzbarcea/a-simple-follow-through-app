@@ -20,7 +20,7 @@ const NavButton = ({type, status, to}: NavButtonProps) => {
     }
 
     return (
-        <div className={`button-${status}`} onClick={handleNavigate}>
+        <div className={`nav-button-${status}`} onClick={handleNavigate}>
             <FontAwesomeIcon
                 icon={type === 'back' ? faArrowUp : faArrowDown}
                 style={{color: status === 'active' ? 'var(--text-main)' : 'var(--text-faded)'}}
