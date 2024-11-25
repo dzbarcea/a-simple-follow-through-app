@@ -8,3 +8,31 @@
     flex: 1;
     width: 100%;
 }
+
+.selection {
+    display: flex;
+
+    width: 100%;
+    padding: 1.5rem 2rem;
+    border-radius: 2rem;
+
+    background: var(--primary-dark);
+}
+
+.selection:hover {
+    background: var(--primary-main);
+    cursor: pointer;
+}
+
+.selection.active {
+    background: var(--primary-main);
+}
+
+.selection input {
+    display: none;
+}
+
+/*  */
+.selection:has(input:checked) {
+    background: var(--primary-main);
+}

@@ -16,7 +16,7 @@
     --primary-dark: #212A3C;
 }
 
-h1,h2,h3,h4,h5,h6,p,button,a {
+h1,h2,h3,h4,h5,h6,p,button,a,label {
     font-weight: 400;
     color: var(--text-main);
     font-family: 'Gabarito', sans-serif;
@@ -30,7 +30,7 @@ h2 {
     font-size: 3rem;
 }
 
-p,a,button {
+p,a,button,label {
 
     font-size: 1.5rem;
 }
