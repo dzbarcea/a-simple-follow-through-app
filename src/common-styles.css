@@ -14,6 +14,8 @@
 
     --primary-main: #2B4270;
     --primary-dark: #212A3C;
+
+    --hover: #c2bbc6;
 }
 
 ::placeholder {

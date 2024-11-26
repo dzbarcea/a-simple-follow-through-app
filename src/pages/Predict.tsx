@@ -25,7 +25,7 @@ const Predict = () => {
             
             <TextArea placeholder='Type a prediction for the outcome of the activity you chose.' setIsSectionComplete={setIsSectionComplete}/>
 
-            <Button text='Predict' status={isSectionComplete ? 'active' : 'disabled'} onClick={navigateToNextPage} />
+            <Button text='Reflect' status={isSectionComplete ? 'active' : 'disabled'} onClick={navigateToNextPage} />
         </>
     );
 }
