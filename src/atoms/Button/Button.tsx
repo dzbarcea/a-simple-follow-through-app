@@ -6,11 +6,12 @@ import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 interface ButtonProps {
     text: string;
     status: 'active' | 'disabled';
+    onClick: () => void;
 }
 
-const Button = ({ text, status }: ButtonProps) => {
+const Button = ({ text, status, onClick }: ButtonProps) => {
     return (
-        <button className={`button button-${status}`}>
+        <button className={`button button-${status}`} onClick={onClick}>
             {text}
             <FontAwesomeIcon icon={faArrowDown} />
         </button>
