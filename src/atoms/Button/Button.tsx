@@ -11,7 +11,7 @@ interface ButtonProps {
 
 const Button = ({ text, status, onClick }: ButtonProps) => {
     return (
-        <button className={`button button-${status}`} onClick={onClick}>
+        <button type='button' className={`button button-${status}`} onClick={onClick}>
             {text}
             <FontAwesomeIcon icon={faArrowDown} />
         </button>
