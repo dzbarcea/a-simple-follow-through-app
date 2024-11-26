@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import Header from '../atoms/Header/Header';
+import React, { useState } from 'react';
+import Header from '../components/Header/Header';
 import Button from '../atoms/Button/Button';
 import ActivitySelector from '../components/ActivitySelector/ActivitySelector';
 
@@ -12,7 +12,7 @@ const PickActivity = (props: PickActivityProps) => {
 
     return (
         <>
-            <Header title='Pick an activity.' subtitle='Some subtitle' />
+            <Header title='Pick an activity.' subtitle='Some subtitle' hasSelection={hasSelection}/>
 
             <ActivitySelector onChange={() => setHasSelection(true)}/>
 
