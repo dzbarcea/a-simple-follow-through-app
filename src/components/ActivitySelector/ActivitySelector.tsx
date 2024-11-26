@@ -1,4 +1,4 @@
-import React, {ChangeEventHandler, MouseEventHandler, useRef, useState} from 'react';
+import React, {KeyboardEventHandler, MouseEventHandler, useRef, useState} from 'react';
 import './ActivitySelector.css';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPencil} from '@fortawesome/free-solid-svg-icons/faPencil';
@@ -11,7 +11,6 @@ interface ActivitySelectorProps {
 const ActivitySelector = (props: ActivitySelectorProps) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentlyEditingSpan, setCurrentlyEditingSpan] = useState<Element | null>();
-    const [inputHasChanged, setInputHasChanged] = useState(false);
     const textInputRef = useRef<HTMLInputElement>(null);
 
     const handleOpenModal: MouseEventHandler<HTMLButtonElement> = (event) => {
@@ -25,7 +24,7 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
         setIsModalOpen(false);
     }
 
-    const handleSave: MouseEventHandler<HTMLButtonElement> = (event) => {
+    const handleSave = () => {
         const textInput = textInputRef.current?.value;
 
         if (textInput !== undefined && currentlyEditingSpan) {
@@ -33,6 +32,12 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
         }
 
         handleCloseModal();
+    }
+
+    const handleEnterKeyPressed: KeyboardEventHandler<HTMLInputElement> = (event) => {
+        if (event.key === 'Enter') {
+            handleSave();
+        }
     }
     
     return (
@@ -69,6 +74,7 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
                     type='text'
                     ref={textInputRef}
                     defaultValue={ currentlyEditingSpan?.textContent ?? '' }
+                    onKeyDown={handleEnterKeyPressed}
                 />
                 <div className='button-container'>
                     <button type='button' className='modal-button button-secondary' onClick={handleCloseModal}>
