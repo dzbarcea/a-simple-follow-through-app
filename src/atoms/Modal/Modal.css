@@ -11,7 +11,11 @@
 }
 
 .modal-content {
-    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    background-color: var(--night);
     padding: 20px;
     border-radius: 5px;
 }

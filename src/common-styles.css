@@ -42,8 +42,16 @@ h2 {
 }
 
 p,a,button,label,input,textarea {
-
     font-size: 1.5rem;
+}
+
+input {
+    background: none;
+    border: 2px solid var(--text-main);
+    border-radius: 1.5rem;
+    padding: 0.25rem 0.75rem;
+
+    font-size: 1.25rem;
 }
 
 .bg-container {
@@ -66,4 +74,21 @@ p,a,button,label,input,textarea {
     height: 100%;
     width: 50%;
     padding: 7.5rem 0;
+}
+
+.button-primary {
+    background-color: var(--text-main);
+    color: var(--primary-main);
+}
+
+.button-primary:hover {
+    cursor: pointer;
+    background: var(--primary-main);
+    border-color: var(--primary-main);
+    color: var(--text-main);
+}
+
+.button-secondary:hover {
+    cursor: pointer;
+    color: var(--text-faded);
 }
