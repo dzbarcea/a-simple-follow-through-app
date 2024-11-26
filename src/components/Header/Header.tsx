@@ -5,16 +5,16 @@ import NavButton from '../../atoms/NavButton/NavButton';
 interface HeaderProps {
     title: string;
     subtitle: string;
-    hasSelection: boolean;
+    sectionComplete: boolean;
 }
 
-const Header = ({ title, subtitle, hasSelection }: HeaderProps) => {
+const Header = ({ title, subtitle, sectionComplete }: HeaderProps) => {
     return (
         <div className='section-header'>
             <h1>{title}</h1>
             <div className='nav-container'>
                 <NavButton type='back' status='disabled'/>
-                <NavButton type='next' status={hasSelection ? 'active' : 'disabled'}/>
+                <NavButton type='next' status={sectionComplete ? 'active' : 'disabled'}/>
             </div>
         </div>
     );

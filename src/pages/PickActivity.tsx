@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Header from '../components/Header/Header';
 import Button from '../atoms/Button/Button';
 import ActivitySelector from '../components/ActivitySelector/ActivitySelector';
@@ -21,7 +21,7 @@ const PickActivity = () => {
 
     return (
         <>
-            <Header title='Pick an activity.' subtitle='Some subtitle' hasSelection={hasSelection}/>
+            <Header title='Pick an activity.' subtitle='Some subtitle' sectionComplete={hasSelection}/>
 
             <ActivitySelector onChange={() => setHasSelection(true)}/>
 

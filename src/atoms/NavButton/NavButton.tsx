@@ -13,6 +13,11 @@ interface NavButtonProps {
 const NavButton = ({ type, status }: NavButtonProps) => {
     const navigate = useNavigate();
     const navContext = useNavContext();
+    const trueStatus = (
+        type == 'back' && navContext?.prevPath ?
+            'active' :
+            status
+    );
 
     const handleNavigate = () => {
         if (type === 'back' && navContext?.prevPath) {
@@ -28,13 +33,13 @@ const NavButton = ({ type, status }: NavButtonProps) => {
                 // Back button should always be active if a previous path exists
                 type === 'back' && navContext?.prevPath ?
                     `nav-button-active` :
-                    `nav-button-${status}`
+                    `nav-button-${trueStatus}`
             }
             onClick={handleNavigate}
         >
             <FontAwesomeIcon
                 icon={type === 'back' ? faArrowUp : faArrowDown}
-                style={{color: status === 'active' ? 'var(--text-main)' : 'var(--text-faded)'}}
+                style={{color: trueStatus === 'active' ? 'var(--text-main)' : 'var(--text-faded)'}}
             />
         </div>
     );

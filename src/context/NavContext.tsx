@@ -1,4 +1,5 @@
 import React, {ReactNode, useContext, useEffect, useState} from 'react';
+import {useLocation} from 'react-router-dom';
 
 const navStack = [
     '/pick-activity',
@@ -18,12 +19,12 @@ const NavContextProvider = ({ children } : { children: ReactNode }) => {
         prevPath: undefined,
         nextPath: undefined
     });
+    const location = useLocation();
 
     useEffect(() => {
-        const URL = window.location.href;
-        const location = URL.substring(URL.lastIndexOf('/'));
+        const pathName = location.pathname;
 
-        const navStackPosition = navStack.indexOf(location);
+        const navStackPosition = navStack.indexOf(pathName);
         if (navStackPosition === -1) {
 
             return;
@@ -33,8 +34,7 @@ const NavContextProvider = ({ children } : { children: ReactNode }) => {
                 nextPath: navStack[navStackPosition + 1]
             });
         }
-
-    }, [window.location.href]);
+    }, [location]);
 
     return (
         <NavContext.Provider value={navigation}>

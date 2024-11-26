@@ -1,12 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
+import Header from '../components/Header/Header';
 
-interface PredictProps {
-    
-}
 
-const Predict = (props: PredictProps) => {
+const Predict = () => {
+    const [hasSelection, sethasSelection] = useState(false);
+
     return (
         <>
+            <Header title='Make a prediction.' subtitle='Some subtitle' sectionComplete={hasSelection}/>
+            
+            
         </>
     );
 }

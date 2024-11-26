@@ -1,12 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
+import Header from '../components/Header/Header';
 
-interface ReflectProps {
 
-}
+const Reflect = () => {
+    const [isSectionComplete, setIsSectionComplete] = useState(false);
 
-const Reflect = (props: ReflectProps) => {
+
     return (
         <>
+            <Header title='Pick an activity.' subtitle='Some subtitle' sectionComplete={isSectionComplete}/>
         </>
     );
 }
