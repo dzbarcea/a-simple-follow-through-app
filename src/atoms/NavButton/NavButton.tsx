@@ -14,6 +14,7 @@ const NavButton = ({ type, status }: NavButtonProps) => {
     const navigate = useNavigate();
     const navContext = useNavContext();
     const trueStatus = (
+        // Back buttons should always be active if a previous path exists
         type == 'back' && navContext?.prevPath ?
             'active' :
             status
@@ -29,12 +30,7 @@ const NavButton = ({ type, status }: NavButtonProps) => {
 
     return (
         <div
-            className={
-                // Back button should always be active if a previous path exists
-                type === 'back' && navContext?.prevPath ?
-                    `nav-button-active` :
-                    `nav-button-${trueStatus}`
-            }
+            className={`nav-button-${trueStatus}`}
             onClick={handleNavigate}
         >
             <FontAwesomeIcon
