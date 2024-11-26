@@ -66,6 +66,22 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
                         <FontAwesomeIcon icon={faPencil}/>
                     </button>
                 </label>
+
+                <label className='selection'>
+                    <input type='radio' name='activity'/>
+                    <span>Activity 4</span>
+                    <button type='button' className='edit-button' onClick={handleOpenModal}>
+                        <FontAwesomeIcon icon={faPencil}/>
+                    </button>
+                </label>
+
+                <label className='selection'>
+                    <input type='radio' name='activity'/>
+                    <span>Activity 5</span>
+                    <button type='button' className='edit-button' onClick={handleOpenModal}>
+                        <FontAwesomeIcon icon={faPencil}/>
+                    </button>
+                </label>
             </form>
 
             <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
@@ -73,7 +89,7 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
                 <input
                     type='text'
                     ref={textInputRef}
-                    defaultValue={ currentlyEditingSpan?.textContent ?? '' }
+                    defaultValue={currentlyEditingSpan?.textContent ?? ''}
                     onKeyDown={handleEnterKeyPressed}
                 />
                 <div className='button-container'>
