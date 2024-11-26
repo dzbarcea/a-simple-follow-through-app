@@ -5,11 +5,8 @@ import ActivitySelector from '../components/ActivitySelector/ActivitySelector';
 import {useNavContext} from '../context/NavContext';
 import {useNavigate} from 'react-router-dom';
 
-interface PickActivityProps {
-    
-}
 
-const PickActivity = (props: PickActivityProps) => {
+const PickActivity = () => {
     const [hasSelection, setHasSelection] = useState(false);
     const navContext = useNavContext();
     const navigate = useNavigate();
