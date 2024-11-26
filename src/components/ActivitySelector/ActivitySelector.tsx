@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {ChangeEventHandler, MouseEventHandler, useRef, useState} from 'react';
 import './ActivitySelector.css';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPencil} from '@fortawesome/free-solid-svg-icons/faPencil';
@@ -10,13 +10,29 @@ interface ActivitySelectorProps {
 
 const ActivitySelector = (props: ActivitySelectorProps) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [currentlyEditingSpan, setCurrentlyEditingSpan] = useState<Element | null>();
+    const [inputHasChanged, setInputHasChanged] = useState(false);
+    const textInputRef = useRef<HTMLInputElement>(null);
 
-    const handleOpenModal = () => {
+    const handleOpenModal: MouseEventHandler<HTMLButtonElement> = (event) => {
+        const target = event.currentTarget;
+
+        setCurrentlyEditingSpan(target.previousElementSibling);
         setIsModalOpen(true);
     }
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
+    }
+
+    const handleSave: MouseEventHandler<HTMLButtonElement> = (event) => {
+        const textInput = textInputRef.current?.value;
+
+        if (textInput !== undefined && currentlyEditingSpan) {
+            currentlyEditingSpan.textContent = textInput;
+        }
+
+        handleCloseModal();
     }
     
     return (
@@ -49,12 +65,16 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
 
             <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
                 <p>Edit name</p>
-                <input type='text'/>
+                <input
+                    type='text'
+                    ref={textInputRef}
+                    defaultValue={ currentlyEditingSpan?.textContent ?? '' }
+                />
                 <div className='button-container'>
                     <button type='button' className='modal-button button-secondary' onClick={handleCloseModal}>
                         Cancel
                     </button>
-                    <button type='button' className='modal-button button-primary'>
+                    <button type='button' className={`modal-button button-primary`} onClick={handleSave}>
                         Save
                     </button>
                 </div>
