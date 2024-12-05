@@ -27,7 +27,7 @@
     color: var(--text-faded);
 }
 
-h1,h2,h3,h4,h5,h6,p,button,a,label,input,textarea {
+h1,h2,h3,h4,h5,h6,p,button,a,label,input,textarea,ul {
     font-weight: 400;
     color: var(--text-main);
     font-family: 'Gabarito', sans-serif;

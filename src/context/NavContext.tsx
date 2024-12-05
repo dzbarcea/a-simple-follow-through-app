@@ -1,4 +1,4 @@
-import React, {ReactNode, useContext, useEffect, useState} from 'react';
+import React, {ReactNode, useContext, useEffect, useState, createContext} from 'react';
 import {useLocation} from 'react-router-dom';
 
 const navStack = [
@@ -12,7 +12,7 @@ interface NavContextType {
     nextPath: string | undefined;
 }
 
-export const NavContext = React.createContext<NavContextType | null>(null);
+export const NavContext = createContext<NavContextType | null>(null);
 
 const NavContextProvider = ({ children } : { children: ReactNode }) => {
     const [navigation, setNavigation] = useState<NavContextType>({
