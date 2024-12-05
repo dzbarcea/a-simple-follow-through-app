@@ -23,8 +23,11 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
 
     // Handles modal state for saving presets
     const [isSavePresetModalOpen, setIsSavePresetModalOpen] = useState(false);
-    const [currentlyEditingPreset, setCurrentlyEditingPreset] = useState<PresetType | null>(null);
     const namePresetTextInputRef = useRef<HTMLInputElement>(null);
+
+    // Handles modal state for loading preset
+    const [isLoadPresetModalOpen, setIsLoadPresetModalOpen] = useState(false);
+    const [selectedPresetId, setSelectedPresetId] = useState<string | null>(null);
 
     // Other state
     const [canAddMoreSelections, setCanAddMoreSelections] = useState(false);
@@ -68,13 +71,20 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
         handleCloseEditModal();
     }
 
-    const handleEnterKeyPressed: KeyboardEventHandler<HTMLInputElement> = (event) => {
+    const handleEnterKeyPressedEditModal: KeyboardEventHandler<HTMLInputElement> = (event) => {
         if (event.key !== 'Enter') {
             return;
         }
-
         if (isEditModalOpen) {
             handleSaveEdit();
+        }
+    }
+    const handleEnterKeyPressedSavePresetModal: KeyboardEventHandler<HTMLInputElement> = (event) => {
+        if (event.key !== 'Enter') {
+            return;
+        }
+        if (isSavePresetModalOpen) {
+            handleSavePreset();
         }
     }
 
@@ -104,14 +114,13 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
 
         const newPreset: PresetType = {
             name: '',
+            id: uuidv4(),
             selectionList: formContext.selectionList,
         }
-        setCurrentlyEditingPreset(newPreset);
         setIsSavePresetModalOpen(true);
     }
 
     const handleCloseSavePresetModal = () => {
-        setCurrentlyEditingPreset(null);
         setIsSavePresetModalOpen(false);
     }
 
@@ -128,11 +137,33 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
 
         const newPreset = {
             name: textInput,
+            id: uuidv4(),
             selectionList: formContext.selectionList,
         }
         formContext.setPresetList(presets => [...presets, newPreset]);
 
         handleCloseSavePresetModal();
+    }
+
+    const handleOpenLoadPresetModal = () => {
+        setIsLoadPresetModalOpen(true);
+    }
+    const handleCloseLoadPresetModal = () => {
+        setIsLoadPresetModalOpen(false);
+    }
+    const handleLoadPreset = () => {
+        if (!formContext) {
+            return;
+        }
+
+        if (!selectedPresetId) {
+            return;
+        }
+
+        const presetToLoad = formContext.presetList.filter((preset) => (preset.id === selectedPresetId));
+        formContext.setSelectionList(presetToLoad[0].selectionList);
+
+        handleCloseLoadPresetModal();
     }
 
     return (
@@ -160,7 +191,7 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
                     <button type='button' className='preset-button' onClick={handleOpenSavePresetModal}>
                         Save Preset
                     </button>
-                    <button type='button' className='preset-button'>
+                    <button type='button' className='preset-button' onClick={handleOpenLoadPresetModal}>
                         Load Preset
                     </button>
                 </div>
@@ -172,14 +203,14 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
                     type='text'
                     ref={editTextInputRef}
                     defaultValue={currentlyEditingSelection?.name ?? ''}
-                    onKeyDown={handleEnterKeyPressed}
+                    onKeyDown={handleEnterKeyPressedEditModal}
                 />
                 <div className='button-container'>
                     <button type='button' className='modal-button button-secondary' onClick={handleCloseEditModal}>
                         Cancel
                     </button>
                     <button type='button' className={`modal-button button-primary`} onClick={handleSaveEdit}>
-                        Save
+                        Confirm
                     </button>
                 </div>
             </Modal>
@@ -189,15 +220,43 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
                 <input
                     type='text'
                     ref={namePresetTextInputRef}
-                    defaultValue={currentlyEditingSelection?.name ?? ''}
-                    onKeyDown={handleEnterKeyPressed}
+                    onKeyDown={handleEnterKeyPressedSavePresetModal}
                 />
                 <div className='button-container'>
                     <button type='button' className='modal-button button-secondary' onClick={handleCloseSavePresetModal}>
                         Cancel
                     </button>
                     <button type='button' className={`modal-button button-primary`} onClick={handleSavePreset}>
-                        Save
+                        Confirm
+                    </button>
+                </div>
+            </Modal>
+
+            <Modal isOpen={isLoadPresetModalOpen} onClose={handleCloseLoadPresetModal}>
+                <p>Load preset</p>
+                <ul className='load-preset-container'>
+                    {formContext?.presetList && formContext.presetList.length > 0
+                        ? formContext.presetList.map(preset => (
+                            <li key={preset.id}>
+                                <label className='preset-option'>
+                                    <input
+                                        type='radio'
+                                        name='preset'
+                                        onChange={() => setSelectedPresetId(preset.id)}
+                                    />
+                                    <span>{preset.name}</span>
+                                </label>
+                            </li>
+                        ))
+                        : <li>You currently have no presets.</li>
+                    }
+                </ul>
+                <div className='button-container'>
+                    <button type='button' className='modal-button button-secondary' onClick={handleCloseLoadPresetModal}>
+                        Cancel
+                    </button>
+                    <button type='button' className={`modal-button button-primary`} onClick={handleLoadPreset}>
+                        Confirm
                     </button>
                 </div>
             </Modal>

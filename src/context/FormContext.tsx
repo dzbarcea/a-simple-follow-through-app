@@ -16,6 +16,7 @@ export interface SelectionType {
 
 export interface PresetType {
     name: string;
+    id: string;
     selectionList: SelectionType[];
 }
 
@@ -61,8 +62,8 @@ const FormContextProvider = ({ children } : { children: ReactNode }) => {
     }, []);
 
     useEffect(() => {
-        console.log(selectionList);
-        console.log(presetList);
+        // console.log(selectionList);
+        // console.log(presetList);
     }, [selectionList, presetList]);
 
     return (

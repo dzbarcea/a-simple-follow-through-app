@@ -26,9 +26,6 @@
     cursor: pointer;
 }
 
-.selection.active {
-    background: var(--primary-main);
-}
 
 .selection input {
     display: none;
@@ -114,4 +111,42 @@
     background: var(--primary-main);
     border-color: var(--primary-main);
     cursor: pointer;
+}
+
+.load-preset-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    padding: 1rem 0;
+}
+
+.preset-option {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    padding: 0.625rem 1rem;
+    border-radius: 2rem;
+
+    font-size: 1.25rem;
+
+    background: var(--primary-dark);
+}
+
+.preset-option:hover {
+    background: var(--primary-main);
+    cursor: pointer;
+}
+
+.preset-option.active {
+    background: var(--primary-main);
+}
+
+.preset-option input {
+    display: none;
+}
+
+.preset-option:has(input:checked) {
+    background: var(--primary-main);
 }
