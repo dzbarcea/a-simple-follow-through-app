@@ -4,25 +4,28 @@ import PickActivity from './pages/PickActivity';
 import NavContextProvider from './context/NavContext';
 import Predict from './pages/Predict';
 import Reflect from './pages/Reflect';
+import FormContextProvider from './context/FormContext';
 
 const App = () => {
     return (
         <BrowserRouter>
             <NavContextProvider>
-                <Routes>
-                    <Route path='/' element={
-                        <div className='bg-container'>
-                            <div className='body-container'>
-                                <Outlet />
+                <FormContextProvider>
+                    <Routes>
+                        <Route path='/' element={
+                            <div className='bg-container'>
+                                <div className='body-container'>
+                                    <Outlet />
+                                </div>
                             </div>
-                        </div>
-                    }>
-                        <Route index element={<Navigate to='/pick-activity' replace={true} />}/>
-                        <Route path='/pick-activity' element={<PickActivity/>}/>
-                        <Route path='/predict' element={<Predict/>}/>
-                        <Route path='/reflect' element={<Reflect/>}/>
-                    </Route>
-                </Routes>
+                        }>
+                            <Route index element={<Navigate to='/pick-activity' replace={true} />}/>
+                            <Route path='/pick-activity' element={<PickActivity/>}/>
+                            <Route path='/predict' element={<Predict/>}/>
+                            <Route path='/reflect' element={<Reflect/>}/>
+                        </Route>
+                    </Routes>
+                </FormContextProvider>
             </NavContextProvider>
         </BrowserRouter>
     );

@@ -1,7 +1,6 @@
 import React, {
     KeyboardEventHandler,
     MouseEventHandler,
-    ReactElement,
     useEffect,
     useRef,
     useState
@@ -9,7 +8,7 @@ import React, {
 import './ActivitySelector.css';
 import Modal from '../../atoms/Modal/Modal';
 import Selection from './Selection';
-import { v4 as uuidv4 } from 'uuid';
+import {SelectionType, useFormContext} from '../../context/FormContext';
 
 interface ActivitySelectorProps {
     onChange: () => void;
@@ -17,41 +16,29 @@ interface ActivitySelectorProps {
 
 const ActivitySelector = (props: ActivitySelectorProps) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [currentlyEditingSpan, setCurrentlyEditingSpan] = useState<Element | null>();
-    const [selectionList, setSelectionList] = useState<ReactElement[]>([]);
+    const [currentlyEditingSelection, setCurrentlyEditingSelection] = useState<SelectionType | null>(null);
     const [canAddMoreSelections, setCanAddMoreSelections] = useState(false);
     const textInputRef = useRef<HTMLInputElement>(null);
     const formRef = useRef<HTMLFormElement>(null);
 
+    const formContext = useFormContext();
+
     const MAX_SELECTIONS = 5;
 
     useEffect(() => {
-        // Load initial selections
-        let selections: ReactElement[] = [];
-
-        // TODO: load from context
-        for (let i = 0; i < 2; i++) {
-            const newKey = uuidv4();
-            selections.push(
-                <Selection key={newKey} idKey={newKey} handleOpenModal={handleOpenModal} handleDelete={handleDelete} />
-            );
+        if (!formContext) {
+            return;
         }
 
-        setSelectionList(selections);
-    }, []);
-
-    useEffect(() => {
-        if (selectionList.length >= MAX_SELECTIONS) {
+        if (formContext.selectionList.length >= MAX_SELECTIONS) {
             setCanAddMoreSelections(false);
         } else {
             setCanAddMoreSelections(true);
         }
-    }, [selectionList]);
+    }, [formContext]);
 
-    const handleOpenModal: MouseEventHandler<HTMLButtonElement> = (event) => {
-        const target = event.currentTarget;
-
-        setCurrentlyEditingSpan(target.parentElement?.previousElementSibling);
+    const handleOpenModal = (name: string, id: string) => {
+        setCurrentlyEditingSelection({ name: name, id: id });
         setIsModalOpen(true);
     }
 
@@ -62,8 +49,13 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
     const handleSave = () => {
         const textInput = textInputRef.current?.value;
 
-        if (textInput !== undefined && currentlyEditingSpan) {
-            currentlyEditingSpan.textContent = textInput;
+        if (textInput !== undefined && currentlyEditingSelection?.name !== '') {
+            formContext?.setSelectionList(selectionList => selectionList.map((selection) => {
+                if (selection.id === currentlyEditingSelection?.id) {
+                    return { name: textInput, id: currentlyEditingSelection.id };
+                }
+                return selection;
+            }));
         }
 
         handleCloseModal();
@@ -76,29 +68,40 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
     }
 
     const handleDelete = (keyToDelete: string | null) => {
-        setSelectionList(selectionList => selectionList.filter((item) => {
-            return item.key !== keyToDelete;
-        }));
+        // setSelectionList(selectionList => selectionList.filter((item) => {
+        //     return item.key !== keyToDelete;
+        // }));
     }
 
     const handleAddSelection: MouseEventHandler<HTMLButtonElement> = (event) => {
         event.preventDefault();
 
-        const form = formRef.current;
-        if (form) {
-            const newKey = uuidv4();
-            const elementToAdd = (
-                <Selection key={newKey} idKey={newKey} handleOpenModal={handleOpenModal} handleDelete={handleDelete} />
-            );
-
-            setSelectionList(selectionList => [...selectionList, elementToAdd]);
-        }
+        // const form = formRef.current;
+        // if (form) {
+        //     const newKey = uuidv4();
+        //     const elementToAdd = (
+        //         <Selection key={newKey} idKey={newKey} handleOpenModal={handleOpenModal} handleDelete={handleDelete} />
+        //     );
+        //
+        //     // setSelectionList(selectionList => [...selectionList, elementToAdd]);
+        // }
     }
 
     return (
         <>
             <form className='activity-selector' ref={formRef} onChange={props.onChange}>
-                {selectionList}
+                {
+                    formContext &&
+                    formContext.selectionList.map(selection => {
+                        return <Selection
+                            name={selection.name}
+                            key={selection.id}
+                            idKey={selection.id}
+                            handleOpenModal={handleOpenModal}
+                            handleDelete={handleDelete}
+                        />
+                    })
+                }
 
                 <button className={`add-button ${!canAddMoreSelections && 'disabled'}`} onClick={
                     canAddMoreSelections ? handleAddSelection : (event) => event.preventDefault()
@@ -112,7 +115,7 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
                 <input
                     type='text'
                     ref={textInputRef}
-                    defaultValue={currentlyEditingSpan?.textContent ?? ''}
+                    defaultValue={currentlyEditingSelection?.name ?? ''}
                     onKeyDown={handleEnterKeyPressed}
                 />
                 <div className='button-container'>
