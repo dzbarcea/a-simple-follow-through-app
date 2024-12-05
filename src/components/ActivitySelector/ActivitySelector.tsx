@@ -30,7 +30,7 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
         for (let i = 0; i < 2; i++) {
             const newKey = uuidv4();
             selections.push(
-                <Selection key={newKey} idKey={newKey} name={'New Activity'} handleOpenModal={handleOpenModal} handleDelete={handleDelete} />
+                <Selection key={newKey} idKey={newKey} handleOpenModal={handleOpenModal} handleDelete={handleDelete} />
             );
         }
 
@@ -40,7 +40,7 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
     const handleOpenModal: MouseEventHandler<HTMLButtonElement> = (event) => {
         const target = event.currentTarget;
 
-        setCurrentlyEditingSpan(target.previousElementSibling);
+        setCurrentlyEditingSpan(target.parentElement?.previousElementSibling);
         setIsModalOpen(true);
     }
 
@@ -78,7 +78,7 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
         if (form) {
             const newKey = uuidv4();
             const elementToAdd = (
-                <Selection key={newKey} idKey={newKey} name='New Activity' handleOpenModal={handleOpenModal} handleDelete={handleDelete} />
+                <Selection key={newKey} idKey={newKey} handleOpenModal={handleOpenModal} handleDelete={handleDelete} />
             );
 
             setSelectionList(selectionList => [...selectionList, elementToAdd]);
