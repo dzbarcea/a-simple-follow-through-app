@@ -15,7 +15,7 @@ const NavButton = ({ type, status }: NavButtonProps) => {
     const navContext = useNavContext();
     const trueStatus = (
         // Back buttons should always be active if a previous path exists
-        type == 'back' && navContext?.prevPath ?
+        type === 'back' && navContext?.prevPath ?
             'active' :
             status
     );

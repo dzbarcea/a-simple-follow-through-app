@@ -16,7 +16,7 @@ const TextArea = ({ placeholder, setIsSectionComplete }: TextAreaProps) => {
             return;
         }
 
-        if (!textArea.value || textArea.value == '') {
+        if (!textArea.value || textArea.value === '') {
             setIsSectionComplete(false);
         } else {
             setIsSectionComplete(true);
