@@ -14,16 +14,23 @@ export interface SelectionType {
     id: string;
 }
 
+export interface PresetType {
+    name: string;
+    selectionList: SelectionType[];
+}
+
 export interface FormContextType {
     // Values
     selectionList: SelectionType[];
     predictionText: string;
     reflectionText?: string;
+    presetList: PresetType[];
 
     // Setters
     setSelectionList: Dispatch<SetStateAction<SelectionType[]>>
     setPredictionText: (predictionText: string) => void;
     setReflectionText: (reflectionText: string) => void;
+    setPresetList: Dispatch<SetStateAction<PresetType[]>>
 }
 
 const FormContext = createContext<FormContextType | null>(null);
@@ -34,6 +41,7 @@ const FormContextProvider = ({ children } : { children: ReactNode }) => {
     const [selectionList, setSelectionList] = useState<SelectionType[]>([]);
     const [predictionText, setPredictionText] = useState('');
     const [reflectionText, setReflectionText] = useState('');
+    const [presetList, setPresetList] = useState<PresetType[]>([]);
 
     useEffect(() => {
         //TODO: fetch initial state from local storage
@@ -52,6 +60,11 @@ const FormContextProvider = ({ children } : { children: ReactNode }) => {
         setSelectionList(selections);
     }, []);
 
+    useEffect(() => {
+        console.log(selectionList);
+        console.log(presetList);
+    }, [selectionList, presetList]);
+
     return (
         <FormContext.Provider value={{
             selectionList: selectionList,
@@ -60,6 +73,8 @@ const FormContextProvider = ({ children } : { children: ReactNode }) => {
             setPredictionText: setPredictionText,
             reflectionText: reflectionText,
             setReflectionText: setReflectionText,
+            presetList: presetList,
+            setPresetList: setPresetList,
         }}>
             {children}
         </FormContext.Provider>

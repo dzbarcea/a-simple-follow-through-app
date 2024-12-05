@@ -72,10 +72,10 @@
     justify-content: center;
 
     width: 100%;
-    padding: 0.5rem;
+    padding: 0.625rem;
     border-radius: 2rem;
 
-    border: 4px solid var(--primary-dark)
+    border: 4px solid var(--primary-dark);
 }
 
 .add-button:hover {
@@ -86,4 +86,32 @@
 
 .add-button.disabled {
     display: none;
+}
+
+.preset-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+
+    width: 100%;
+}
+
+.preset-button {
+    display: flex;
+    align-items: center;
+    flex: 1;
+
+    font-size: 1.25rem;
+
+    padding: 0.625rem 2rem;
+    border-radius: 2rem;
+
+    border: 4px solid var(--primary-dark);
+
+}
+
+.preset-button:hover {
+    background: var(--primary-main);
+    border-color: var(--primary-main);
+    cursor: pointer;
 }

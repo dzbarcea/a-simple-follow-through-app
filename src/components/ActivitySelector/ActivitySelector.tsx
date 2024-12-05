@@ -8,7 +8,7 @@ import React, {
 import './ActivitySelector.css';
 import Modal from '../../atoms/Modal/Modal';
 import Selection from './Selection';
-import {SelectionType, useFormContext} from '../../context/FormContext';
+import {PresetType, SelectionType, useFormContext} from '../../context/FormContext';
 import {v4 as uuidv4} from 'uuid';
 
 interface ActivitySelectorProps {
@@ -16,14 +16,19 @@ interface ActivitySelectorProps {
 }
 
 const ActivitySelector = (props: ActivitySelectorProps) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    // Handles modal state for editing selections
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [currentlyEditingSelection, setCurrentlyEditingSelection] = useState<SelectionType | null>(null);
+    const editTextInputRef = useRef<HTMLInputElement>(null);
+
+    // Handles modal state for saving presets
+    const [isSavePresetModalOpen, setIsSavePresetModalOpen] = useState(false);
+    const [currentlyEditingPreset, setCurrentlyEditingPreset] = useState<PresetType | null>(null);
+    const namePresetTextInputRef = useRef<HTMLInputElement>(null);
+
+    // Other state
     const [canAddMoreSelections, setCanAddMoreSelections] = useState(false);
-    const textInputRef = useRef<HTMLInputElement>(null);
-    const formRef = useRef<HTMLFormElement>(null);
-
     const formContext = useFormContext();
-
     const MAX_SELECTIONS = 5;
 
     useEffect(() => {
@@ -38,18 +43,18 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
         }
     }, [formContext]);
 
-    const handleOpenModal = (name: string, id: string) => {
+    const handleOpenEditModal = (name: string, id: string) => {
         setCurrentlyEditingSelection({ name: name, id: id });
-        setIsModalOpen(true);
+        setIsEditModalOpen(true);
     }
 
-    const handleCloseModal = () => {
+    const handleCloseEditModal = () => {
         setCurrentlyEditingSelection(null);
-        setIsModalOpen(false);
+        setIsEditModalOpen(false);
     }
 
-    const handleSave = () => {
-        const textInput = textInputRef.current?.value;
+    const handleSaveEdit = () => {
+        const textInput = editTextInputRef.current?.value;
 
         if (textInput !== undefined && currentlyEditingSelection?.name !== '') {
             formContext?.setSelectionList(selectionList => selectionList.map((selection) => {
@@ -60,12 +65,16 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
             }));
         }
 
-        handleCloseModal();
+        handleCloseEditModal();
     }
 
     const handleEnterKeyPressed: KeyboardEventHandler<HTMLInputElement> = (event) => {
-        if (event.key === 'Enter') {
-            handleSave();
+        if (event.key !== 'Enter') {
+            return;
+        }
+
+        if (isEditModalOpen) {
+            handleSaveEdit();
         }
     }
 
@@ -80,13 +89,50 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
     }
 
     const handleAddSelection: MouseEventHandler<HTMLButtonElement> = (event) => {
-        event.preventDefault();
-
         if (!formContext) {
             return;
         }
 
         formContext.setSelectionList(selectionList => [...selectionList, { name: 'New Activity', id: uuidv4() }])
+    }
+
+    const handleOpenSavePresetModal = () => {
+
+        if (!formContext) {
+            return;
+        }
+
+        const newPreset: PresetType = {
+            name: '',
+            selectionList: formContext.selectionList,
+        }
+        setCurrentlyEditingPreset(newPreset);
+        setIsSavePresetModalOpen(true);
+    }
+
+    const handleCloseSavePresetModal = () => {
+        setCurrentlyEditingPreset(null);
+        setIsSavePresetModalOpen(false);
+    }
+
+    const handleSavePreset = () => {
+
+        if (!formContext) {
+            return;
+        }
+
+        const textInput = namePresetTextInputRef.current?.value;
+        if (!textInput) {
+            return;
+        }
+
+        const newPreset = {
+            name: textInput,
+            selectionList: formContext.selectionList,
+        }
+        formContext.setPresetList(presets => [...presets, newPreset]);
+
+        handleCloseSavePresetModal();
     }
 
     return (
@@ -99,32 +145,58 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
                             name={selection.name}
                             key={selection.id}
                             idKey={selection.id}
-                            handleOpenModal={handleOpenModal}
+                            handleOpenModal={handleOpenEditModal}
                             handleDelete={handleDelete}
                         />
                     })
                 }
 
-                <button className={`add-button ${!canAddMoreSelections && 'disabled'}`} onClick={
+                <button type='button' className={`add-button ${!canAddMoreSelections && 'disabled'}`} onClick={
                     canAddMoreSelections ? handleAddSelection : (event) => event.preventDefault()
                 }>
                     +
                 </button>
+                <div className='preset-container'>
+                    <button type='button' className='preset-button' onClick={handleOpenSavePresetModal}>
+                        Save Preset
+                    </button>
+                    <button type='button' className='preset-button'>
+                        Load Preset
+                    </button>
+                </div>
             </form>
 
-            <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+            <Modal isOpen={isEditModalOpen} onClose={handleCloseEditModal}>
                 <p>Edit name</p>
                 <input
                     type='text'
-                    ref={textInputRef}
+                    ref={editTextInputRef}
                     defaultValue={currentlyEditingSelection?.name ?? ''}
                     onKeyDown={handleEnterKeyPressed}
                 />
                 <div className='button-container'>
-                    <button type='button' className='modal-button button-secondary' onClick={handleCloseModal}>
+                    <button type='button' className='modal-button button-secondary' onClick={handleCloseEditModal}>
                         Cancel
                     </button>
-                    <button type='button' className={`modal-button button-primary`} onClick={handleSave}>
+                    <button type='button' className={`modal-button button-primary`} onClick={handleSaveEdit}>
+                        Save
+                    </button>
+                </div>
+            </Modal>
+
+            <Modal isOpen={isSavePresetModalOpen} onClose={handleCloseSavePresetModal}>
+                <p>Name your preset</p>
+                <input
+                    type='text'
+                    ref={namePresetTextInputRef}
+                    defaultValue={currentlyEditingSelection?.name ?? ''}
+                    onKeyDown={handleEnterKeyPressed}
+                />
+                <div className='button-container'>
+                    <button type='button' className='modal-button button-secondary' onClick={handleCloseSavePresetModal}>
+                        Cancel
+                    </button>
+                    <button type='button' className={`modal-button button-primary`} onClick={handleSavePreset}>
                         Save
                     </button>
                 </div>
