@@ -3,7 +3,7 @@ import Header from '../components/Header/Header';
 import {useNavContext} from '../context/NavContext';
 import {useNavigate} from 'react-router-dom';
 import TextArea from '../components/TextArea/TextArea';
-import Button from '../atoms/Button/Button';
+import ProceedButton from '../atoms/Button/ProceedButton';
 
 
 const Reflect = () => {
@@ -25,7 +25,7 @@ const Reflect = () => {
 
             <TextArea placeholder={`Reflect on the activity you just did. Optionally write something here to view later.`} setIsSectionComplete={setIsSectionComplete}/>
 
-            <Button text='Finish' status={isSectionComplete ? 'active' : 'disabled'} onClick={navigateToNextPage} />
+            <ProceedButton text='Finish' status={isSectionComplete ? 'active' : 'disabled'} onClick={navigateToNextPage} />
         </>
     );
 }

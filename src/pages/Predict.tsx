@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Header from '../components/Header/Header';
 import TextArea from '../components/TextArea/TextArea';
-import Button from '../atoms/Button/Button';
+import ProceedButton from '../atoms/Button/ProceedButton';
 import {useNavContext} from '../context/NavContext';
 import {useNavigate} from 'react-router-dom';
 
@@ -25,7 +25,7 @@ const Predict = () => {
             
             <TextArea placeholder='Type a prediction for the outcome of the activity you chose.' setIsSectionComplete={setIsSectionComplete}/>
 
-            <Button text='Reflect' status={isSectionComplete ? 'active' : 'disabled'} onClick={navigateToNextPage} />
+            <ProceedButton text='Reflect' status={isSectionComplete ? 'active' : 'disabled'} onClick={navigateToNextPage} />
         </>
     );
 }

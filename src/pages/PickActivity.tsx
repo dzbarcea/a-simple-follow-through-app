@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Header from '../components/Header/Header';
-import Button from '../atoms/Button/Button';
+import ProceedButton from '../atoms/Button/ProceedButton';
 import ActivitySelector from '../components/ActivitySelector/ActivitySelector';
 import {useNavContext} from '../context/NavContext';
 import {useNavigate} from 'react-router-dom';
@@ -25,7 +25,7 @@ const PickActivity = () => {
 
             <ActivitySelector onChange={() => setHasSelection(true)}/>
 
-            <Button text='Predict' status={hasSelection ? 'active' : 'disabled'} onClick={navigateToNextPage} />
+            <ProceedButton text='Predict' status={hasSelection ? 'active' : 'disabled'} onClick={navigateToNextPage} />
         </>
     );
 }

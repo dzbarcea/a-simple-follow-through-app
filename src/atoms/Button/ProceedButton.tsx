@@ -9,7 +9,7 @@ interface ButtonProps {
     onClick: () => void;
 }
 
-const Button = ({ text, status, onClick }: ButtonProps) => {
+const ProceedButton = ({ text, status, onClick }: ButtonProps) => {
     return (
         <button type='button' className={`button button-${status}`} onClick={onClick}>
             {text}
@@ -18,4 +18,4 @@ const Button = ({ text, status, onClick }: ButtonProps) => {
     );
 }
 
-export default Button;
+export default ProceedButton;
