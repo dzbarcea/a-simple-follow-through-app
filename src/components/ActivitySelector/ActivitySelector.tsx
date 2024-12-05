@@ -43,6 +43,7 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
     }
 
     const handleCloseModal = () => {
+        setCurrentlyEditingSelection(null);
         setIsModalOpen(false);
     }
 
@@ -67,10 +68,14 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
         }
     }
 
-    const handleDelete = (keyToDelete: string | null) => {
-        // setSelectionList(selectionList => selectionList.filter((item) => {
-        //     return item.key !== keyToDelete;
-        // }));
+    const handleDelete = (idToDelete: string) => {
+        if (!formContext) {
+            return;
+        }
+
+        formContext.setSelectionList(selectionList => selectionList.filter((selection) => {
+            return selection.id !== idToDelete;
+        }));
     }
 
     const handleAddSelection: MouseEventHandler<HTMLButtonElement> = (event) => {

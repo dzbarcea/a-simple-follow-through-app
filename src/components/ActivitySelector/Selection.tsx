@@ -7,7 +7,7 @@ interface SelectionProps {
     name: string;
     idKey: string;
     handleOpenModal: (name: string, id: string) => void;
-    handleDelete: (keyToDelete: string | null) => void;
+    handleDelete: (idToDelete: string) => void;
 }
 
 const Selection = ({ name, idKey, handleDelete, handleOpenModal }: SelectionProps) => {
