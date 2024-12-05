@@ -1,9 +1,15 @@
-import React, {KeyboardEventHandler, MouseEventHandler, useRef, useState} from 'react';
+import React, {
+    KeyboardEventHandler,
+    MouseEventHandler,
+    ReactElement,
+    useEffect,
+    useRef,
+    useState
+} from 'react';
 import './ActivitySelector.css';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faPencil} from '@fortawesome/free-solid-svg-icons/faPencil';
-import {faTrash} from '@fortawesome/free-solid-svg-icons/faTrash';
 import Modal from '../../atoms/Modal/Modal';
+import Selection from './Selection';
+import { v4 as uuidv4 } from 'uuid';
 
 interface ActivitySelectorProps {
     onChange: () => void;
@@ -12,7 +18,24 @@ interface ActivitySelectorProps {
 const ActivitySelector = (props: ActivitySelectorProps) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentlyEditingSpan, setCurrentlyEditingSpan] = useState<Element | null>();
+    const [selectionList, setSelectionList] = useState<ReactElement[]>([]);
     const textInputRef = useRef<HTMLInputElement>(null);
+    const formRef = useRef<HTMLFormElement>(null);
+
+    useEffect(() => {
+        // Load initial selections
+        let selections: ReactElement[] = [];
+
+        // TODO: load from context
+        for (let i = 0; i < 2; i++) {
+            const newKey = uuidv4();
+            selections.push(
+                <Selection key={newKey} idKey={newKey} name={'New Activity'} handleOpenModal={handleOpenModal} handleDelete={handleDelete} />
+            );
+        }
+
+        setSelectionList(selections);
+    }, []);
 
     const handleOpenModal: MouseEventHandler<HTMLButtonElement> = (event) => {
         const target = event.currentTarget;
@@ -41,45 +64,35 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
         }
     }
 
-    const handleDelete: MouseEventHandler<HTMLButtonElement> = (event) => {
-        // step 1: get the label the event came from
-        const target = event.currentTarget.parentElement?.parentElement;
+    const handleDelete = (keyToDelete: string | null) => {
+        setSelectionList(selectionList => selectionList.filter((item) => {
+            return item.key !== keyToDelete;
+        }));
+        console.log(selectionList);
+    }
 
-        // step 2: remove it from the DOM
-        if(target) {
-            target.remove();
+    const handleAddSelection: MouseEventHandler<HTMLButtonElement> = (event) => {
+        event.preventDefault();
+
+        const form = formRef.current;
+        if (form) {
+            const newKey = uuidv4();
+            const elementToAdd = (
+                <Selection key={newKey} idKey={newKey} name='New Activity' handleOpenModal={handleOpenModal} handleDelete={handleDelete} />
+            );
+
+            setSelectionList(selectionList => [...selectionList, elementToAdd]);
         }
     }
 
     return (
         <>
-            <form className='activity-selector' onChange={props.onChange}>
-                <label className='selection'>
-                    <input type='radio' name='activity'/>
-                    <span>Activity 1</span>
+            <form className='activity-selector' ref={formRef} onChange={props.onChange}>
+                {selectionList}
 
-                    <div>
-                        <button type='button' className='round-button' onClick={handleOpenModal}>
-                            <FontAwesomeIcon icon={faPencil}/>
-                        </button>
-                        <button type='button' className='round-button' onClick={handleDelete}>
-                            <FontAwesomeIcon icon={faTrash}/>
-                        </button>
-                    </div>
-                </label>
-
-                <label className='selection'>
-                    <input type='radio' name='activity'/>
-                    <span>Activity 2</span>
-                    <div>
-                        <button type='button' className='round-button' onClick={handleOpenModal}>
-                            <FontAwesomeIcon icon={faPencil}/>
-                        </button>
-                        <button type='button' className='round-button' onClick={handleDelete}>
-                            <FontAwesomeIcon icon={faTrash}/>
-                        </button>
-                    </div>
-                </label>
+                <button className='add-button' onClick={handleAddSelection}>
+                    +
+                </button>
             </form>
 
             <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
