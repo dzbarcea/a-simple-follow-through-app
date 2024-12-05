@@ -2,6 +2,7 @@ import React, {KeyboardEventHandler, MouseEventHandler, useRef, useState} from '
 import './ActivitySelector.css';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPencil} from '@fortawesome/free-solid-svg-icons/faPencil';
+import {faTrash} from '@fortawesome/free-solid-svg-icons/faTrash';
 import Modal from '../../atoms/Modal/Modal';
 
 interface ActivitySelectorProps {
@@ -39,48 +40,45 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
             handleSave();
         }
     }
-    
+
+    const handleDelete: MouseEventHandler<HTMLButtonElement> = (event) => {
+        // step 1: get the label the event came from
+        const target = event.currentTarget.parentElement?.parentElement;
+
+        // step 2: remove it from the DOM
+        if(target) {
+            target.remove();
+        }
+    }
+
     return (
         <>
             <form className='activity-selector' onChange={props.onChange}>
                 <label className='selection'>
                     <input type='radio' name='activity'/>
                     <span>Activity 1</span>
-                    <button type='button' className='edit-button' onClick={handleOpenModal}>
-                        <FontAwesomeIcon icon={faPencil}/>
-                    </button>
+
+                    <div>
+                        <button type='button' className='round-button' onClick={handleOpenModal}>
+                            <FontAwesomeIcon icon={faPencil}/>
+                        </button>
+                        <button type='button' className='round-button' onClick={handleDelete}>
+                            <FontAwesomeIcon icon={faTrash}/>
+                        </button>
+                    </div>
                 </label>
 
                 <label className='selection'>
                     <input type='radio' name='activity'/>
                     <span>Activity 2</span>
-                    <button type='button' className='edit-button' onClick={handleOpenModal}>
-                        <FontAwesomeIcon icon={faPencil}/>
-                    </button>
-                </label>
-
-                <label className='selection'>
-                    <input type='radio' name='activity'/>
-                    <span>Activity 3</span>
-                    <button type='button' className='edit-button' onClick={handleOpenModal}>
-                        <FontAwesomeIcon icon={faPencil}/>
-                    </button>
-                </label>
-
-                <label className='selection'>
-                    <input type='radio' name='activity'/>
-                    <span>Activity 4</span>
-                    <button type='button' className='edit-button' onClick={handleOpenModal}>
-                        <FontAwesomeIcon icon={faPencil}/>
-                    </button>
-                </label>
-
-                <label className='selection'>
-                    <input type='radio' name='activity'/>
-                    <span>Activity 5</span>
-                    <button type='button' className='edit-button' onClick={handleOpenModal}>
-                        <FontAwesomeIcon icon={faPencil}/>
-                    </button>
+                    <div>
+                        <button type='button' className='round-button' onClick={handleOpenModal}>
+                            <FontAwesomeIcon icon={faPencil}/>
+                        </button>
+                        <button type='button' className='round-button' onClick={handleDelete}>
+                            <FontAwesomeIcon icon={faTrash}/>
+                        </button>
+                    </div>
                 </label>
             </form>
 

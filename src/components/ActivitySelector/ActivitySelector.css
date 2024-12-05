@@ -38,20 +38,6 @@
     background: var(--primary-main);
 }
 
-.edit-button {
-    aspect-ratio: 1 / 1;
-    height: 3rem;
-    border-radius: 50%;
-
-    font-size: 1.25rem;
-}
-
-.edit-button:hover {
-    cursor: pointer;
-    background: var(--text-main);
-    color: var(--primary-main);
-}
-
 .button-container {
     display: flex;
     justify-content: end;
@@ -64,4 +50,18 @@
     padding: 0.5rem 1.5rem;
     border-radius: 99rem;
     font-size: 1rem;
+}
+
+.round-button {
+    aspect-ratio: 1 / 1;
+    height: 2.5rem;
+    border-radius: 50%;
+
+    font-size: 1.25rem;
+}
+
+.round-button:hover {
+    cursor: pointer;
+    background: var(--text-main);
+    color: var(--primary-main);
 }
