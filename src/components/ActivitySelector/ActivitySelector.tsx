@@ -39,14 +39,15 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
             handleSave();
         }
     }
-    
+
     return (
         <>
             <form className='activity-selector' onChange={props.onChange}>
                 <label className='selection'>
                     <input type='radio' name='activity'/>
                     <span>Activity 1</span>
-                    <button type='button' className='edit-button' onClick={handleOpenModal}>
+
+                    <button type='button' className='round-button' onClick={handleOpenModal}>
                         <FontAwesomeIcon icon={faPencil}/>
                     </button>
                 </label>
@@ -54,7 +55,7 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
                 <label className='selection'>
                     <input type='radio' name='activity'/>
                     <span>Activity 2</span>
-                    <button type='button' className='edit-button' onClick={handleOpenModal}>
+                    <button type='button' className='round-button' onClick={handleOpenModal}>
                         <FontAwesomeIcon icon={faPencil}/>
                     </button>
                 </label>
@@ -62,7 +63,7 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
                 <label className='selection'>
                     <input type='radio' name='activity'/>
                     <span>Activity 3</span>
-                    <button type='button' className='edit-button' onClick={handleOpenModal}>
+                    <button type='button' className='round-button' onClick={handleOpenModal}>
                         <FontAwesomeIcon icon={faPencil}/>
                     </button>
                 </label>
@@ -70,7 +71,7 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
                 <label className='selection'>
                     <input type='radio' name='activity'/>
                     <span>Activity 4</span>
-                    <button type='button' className='edit-button' onClick={handleOpenModal}>
+                    <button type='button' className='round-button' onClick={handleOpenModal}>
                         <FontAwesomeIcon icon={faPencil}/>
                     </button>
                 </label>
@@ -78,7 +79,7 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
                 <label className='selection'>
                     <input type='radio' name='activity'/>
                     <span>Activity 5</span>
-                    <button type='button' className='edit-button' onClick={handleOpenModal}>
+                    <button type='button' className='round-button' onClick={handleOpenModal}>
                         <FontAwesomeIcon icon={faPencil}/>
                     </button>
                 </label>
