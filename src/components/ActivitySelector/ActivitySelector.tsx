@@ -79,7 +79,6 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
         setSelectionList(selectionList => selectionList.filter((item) => {
             return item.key !== keyToDelete;
         }));
-        console.log(selectionList);
     }
 
     const handleAddSelection: MouseEventHandler<HTMLButtonElement> = (event) => {
