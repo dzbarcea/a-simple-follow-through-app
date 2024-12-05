@@ -9,6 +9,7 @@ import './ActivitySelector.css';
 import Modal from '../../atoms/Modal/Modal';
 import Selection from './Selection';
 import {SelectionType, useFormContext} from '../../context/FormContext';
+import {v4 as uuidv4} from 'uuid';
 
 interface ActivitySelectorProps {
     onChange: () => void;
@@ -81,20 +82,16 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
     const handleAddSelection: MouseEventHandler<HTMLButtonElement> = (event) => {
         event.preventDefault();
 
-        // const form = formRef.current;
-        // if (form) {
-        //     const newKey = uuidv4();
-        //     const elementToAdd = (
-        //         <Selection key={newKey} idKey={newKey} handleOpenModal={handleOpenModal} handleDelete={handleDelete} />
-        //     );
-        //
-        //     // setSelectionList(selectionList => [...selectionList, elementToAdd]);
-        // }
+        if (!formContext) {
+            return;
+        }
+
+        formContext.setSelectionList(selectionList => [...selectionList, { name: 'New Activity', id: uuidv4() }])
     }
 
     return (
         <>
-            <form className='activity-selector' ref={formRef} onChange={props.onChange}>
+            <form className='activity-selector' onChange={props.onChange}>
                 {
                     formContext &&
                     formContext.selectionList.map(selection => {
