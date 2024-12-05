@@ -10,6 +10,8 @@ import Modal from '../../atoms/Modal/Modal';
 import Selection from './Selection';
 import {PresetType, SelectionType, useFormContext} from '../../context/FormContext';
 import {v4 as uuidv4} from 'uuid';
+import {faTrash} from '@fortawesome/free-solid-svg-icons/faTrash';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 interface ActivitySelectorProps {
     onChange: () => void;
@@ -165,6 +167,17 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
 
         handleCloseLoadPresetModal();
     }
+    const handleDeletePreset = (id: string) => {
+        if (!formContext) {
+            return;
+        }
+
+        if (selectedPresetId === id) {
+            setSelectedPresetId(null);
+        }
+
+        formContext.setPresetList(presetList => presetList.filter((preset) => (preset.id !== id)));
+    }
 
     return (
         <>
@@ -245,6 +258,10 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
                                         onChange={() => setSelectedPresetId(preset.id)}
                                     />
                                     <span>{preset.name}</span>
+
+                                    <button type='button' className='round-button' onClick={() => handleDeletePreset(preset.id)}>
+                                        <FontAwesomeIcon icon={faTrash}/>
+                                    </button>
                                 </label>
                             </li>
                         ))
