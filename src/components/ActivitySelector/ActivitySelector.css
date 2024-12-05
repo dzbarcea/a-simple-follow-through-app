@@ -83,3 +83,7 @@
     border-color: var(--primary-main);
     cursor: pointer;
 }
+
+.add-button.disabled {
+    display: none;
+}

@@ -19,8 +19,11 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentlyEditingSpan, setCurrentlyEditingSpan] = useState<Element | null>();
     const [selectionList, setSelectionList] = useState<ReactElement[]>([]);
+    const [canAddMoreSelections, setCanAddMoreSelections] = useState(false);
     const textInputRef = useRef<HTMLInputElement>(null);
     const formRef = useRef<HTMLFormElement>(null);
+
+    const MAX_SELECTIONS = 5;
 
     useEffect(() => {
         // Load initial selections
@@ -36,6 +39,14 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
 
         setSelectionList(selections);
     }, []);
+
+    useEffect(() => {
+        if (selectionList.length >= MAX_SELECTIONS) {
+            setCanAddMoreSelections(false);
+        } else {
+            setCanAddMoreSelections(true);
+        }
+    }, [selectionList]);
 
     const handleOpenModal: MouseEventHandler<HTMLButtonElement> = (event) => {
         const target = event.currentTarget;
@@ -90,7 +101,9 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
             <form className='activity-selector' ref={formRef} onChange={props.onChange}>
                 {selectionList}
 
-                <button className='add-button' onClick={handleAddSelection}>
+                <button className={`add-button ${!canAddMoreSelections && 'disabled'}`} onClick={
+                    canAddMoreSelections ? handleAddSelection : (event) => event.preventDefault()
+                }>
                     +
                 </button>
             </form>
