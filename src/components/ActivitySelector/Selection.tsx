@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {MouseEventHandler, useRef} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPencil} from '@fortawesome/free-solid-svg-icons/faPencil';
 import {faTrash} from '@fortawesome/free-solid-svg-icons/faTrash';
@@ -15,7 +15,14 @@ const Selection = ({ name, idKey, handleDelete, handleOpenModal }: SelectionProp
     const formContext = useFormContext();
     const selectionRef = useRef<HTMLLabelElement>(null);
 
-    const handleClick = () => {
+    const handleClick: MouseEventHandler<HTMLLabelElement> = (e) => {
+        const target = e.target;
+        if (!(target instanceof HTMLLabelElement) &&
+            !(target instanceof HTMLInputElement) &&
+            !(target instanceof HTMLSpanElement)) {
+            return;
+        }
+
         if (!formContext) {
             return;
         }

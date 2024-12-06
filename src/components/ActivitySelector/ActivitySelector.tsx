@@ -92,7 +92,9 @@ const ActivitySelector = () => {
             return;
         }
 
-        console.log(formContext.selectionList);
+        if (formContext.chosenSelectionId === idToDelete) {
+            formContext.setChosenSelectionId('');
+        }
 
         formContext.setSelectionList(selectionList => selectionList.filter((selection) => {
             return selection.id !== idToDelete;
