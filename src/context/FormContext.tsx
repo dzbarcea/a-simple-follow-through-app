@@ -23,12 +23,14 @@ export interface PresetType {
 export interface FormContextType {
     // Values
     selectionList: SelectionType[];
+    chosenSelectionId: string;
     predictionText: string;
     reflectionText?: string;
     presetList: PresetType[];
 
     // Setters
     setSelectionList: Dispatch<SetStateAction<SelectionType[]>>
+    setChosenSelectionId: (id: string) => void;
     setPredictionText: (predictionText: string) => void;
     setReflectionText: (reflectionText: string) => void;
     setPresetList: Dispatch<SetStateAction<PresetType[]>>
@@ -41,43 +43,22 @@ const FormContext = createContext<FormContextType | null>(null);
 
 export const useFormContext = () => useContext(FormContext);
 
+const useLocalStorage = (field: string, defaultValue: any) => {
+    try {
+        const initialValue = localStorage.getItem(field);
+        return initialValue ? JSON.parse(initialValue) : defaultValue;
+    } catch (error) {
+        console.error(error);
+        return defaultValue;
+    }
+}
+
 const FormContextProvider = ({ children } : { children: ReactNode }) => {
-    const [selectionList, setSelectionList] = useState<SelectionType[]>(() => {
-        try {
-            const initialSelections = localStorage.getItem('selectionList');
-            return initialSelections ? JSON.parse(initialSelections) : [];
-        } catch (error) {
-            console.error(error);
-            return [];
-        }
-    });
-    const [predictionText, setPredictionText] = useState<string>(() => {
-        try {
-            const initialPrediction = localStorage.getItem('predictionText');
-            return initialPrediction ? JSON.parse(initialPrediction) : '';
-        } catch (error) {
-            console.error(error);
-            return '';
-        }
-    });
-    const [reflectionText, setReflectionText] = useState<string>(() => {
-        try {
-            const initialReflection = localStorage.getItem('predictionText');
-            return initialReflection ? JSON.parse(initialReflection) : '';
-        } catch (error) {
-            console.error(error);
-            return '';
-        }
-    });
-    const [presetList, setPresetList] = useState<PresetType[]>(() => {
-        try {
-            const initialPresets = localStorage.getItem('presetList');
-            return initialPresets ? JSON.parse(initialPresets) : [];
-        } catch (error) {
-            console.error(error);
-            return [];
-        }
-    });
+    const [selectionList, setSelectionList] = useState<SelectionType[]>(useLocalStorage('selectionList', []));
+    const [chosenSelectionId, setChosenSelectionId] = useState(useLocalStorage('chosenSelectionId', ''));
+    const [predictionText, setPredictionText] = useState<string>(useLocalStorage('predictionText', ''));
+    const [reflectionText, setReflectionText] = useState<string>(useLocalStorage('reflectionText', ''));
+    const [presetList, setPresetList] = useState<PresetType[]>(useLocalStorage('presetList', []));
 
     useEffect(() => {
         //TODO: fetch initial state from local storage
@@ -112,6 +93,10 @@ const FormContextProvider = ({ children } : { children: ReactNode }) => {
     }, [selectionList]);
 
     useEffect(() => {
+        localStorage.setItem('chosenSelectionId', JSON.stringify(chosenSelectionId));
+    }, [chosenSelectionId]);
+
+    useEffect(() => {
         localStorage.setItem('presetList', JSON.stringify(presetList));
     }, [presetList]);
 
@@ -125,19 +110,23 @@ const FormContextProvider = ({ children } : { children: ReactNode }) => {
 
     const submitForm = () => {
 
-        // TODO: add this to local storage and view it later
+        // TODO: add form data to local storage and view it later
 
         // Clear local storage for predictions and reflections
         setPredictionText('');
         setReflectionText('');
+        setChosenSelectionId('');
         localStorage.setItem('predictionText', '');
         localStorage.setItem('reflectionText', '');
+        localStorage.setItem('chosenSelectionId', '');
     }
 
     return (
         <FormContext.Provider value={{
             selectionList: selectionList,
             setSelectionList: setSelectionList,
+            chosenSelectionId: chosenSelectionId,
+            setChosenSelectionId: setChosenSelectionId,
             predictionText: predictionText,
             setPredictionText: setPredictionText,
             reflectionText: reflectionText,
