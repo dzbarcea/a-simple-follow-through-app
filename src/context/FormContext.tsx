@@ -48,8 +48,24 @@ const FormContextProvider = ({ children } : { children: ReactNode }) => {
             return [];
         }
     });
-    const [predictionText, setPredictionText] = useState('');
-    const [reflectionText, setReflectionText] = useState('');
+    const [predictionText, setPredictionText] = useState<string>(() => {
+        try {
+            const initialPrediction = localStorage.getItem('predictionText');
+            return initialPrediction ? JSON.parse(initialPrediction) : '';
+        } catch (error) {
+            console.error(error);
+            return '';
+        }
+    });
+    const [reflectionText, setReflectionText] = useState<string>(() => {
+        try {
+            const initialReflection = localStorage.getItem('predictionText');
+            return initialReflection ? JSON.parse(initialReflection) : '';
+        } catch (error) {
+            console.error(error);
+            return '';
+        }
+    });
     const [presetList, setPresetList] = useState<PresetType[]>(() => {
         try {
             const initialPresets = localStorage.getItem('presetList');
@@ -89,11 +105,20 @@ const FormContextProvider = ({ children } : { children: ReactNode }) => {
     }, []);
 
     useEffect(() => {
-        console.log(selectionList);
-        console.log(presetList);
         localStorage.setItem('selectionList', JSON.stringify(selectionList));
+    }, [selectionList]);
+
+    useEffect(() => {
         localStorage.setItem('presetList', JSON.stringify(presetList));
-    }, [selectionList, presetList]);
+    }, [presetList]);
+
+    useEffect(() => {
+        localStorage.setItem('predictionText', JSON.stringify(predictionText));
+    }, [predictionText]);
+
+    useEffect(() => {
+        localStorage.setItem('reflectionText', JSON.stringify(reflectionText));
+    }, [reflectionText]);
 
     return (
         <FormContext.Provider value={{

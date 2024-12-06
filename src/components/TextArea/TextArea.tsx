@@ -2,30 +2,27 @@ import React, {useRef} from 'react';
 import './TextArea.css';
 
 interface TextAreaProps {
+    defaultValue?: string;
     placeholder: string;
-    setIsSectionComplete: (value: boolean) => void;
+    setDefaultValue?: (value: string) => void;
 }
 
-const TextArea = ({ placeholder, setIsSectionComplete }: TextAreaProps) => {
+const TextArea = ({ defaultValue, setDefaultValue, placeholder }: TextAreaProps) => {
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
     const onChange = () => {
         const textArea = textAreaRef.current;
 
-        if (!textArea) {
+        if (!textArea || !setDefaultValue) {
             return;
         }
 
-        if (!textArea.value || textArea.value === '') {
-            setIsSectionComplete(false);
-        } else {
-            setIsSectionComplete(true);
-        }
+        setDefaultValue(textArea.value);
     }
 
     return (
         <form className='text-form'>
-            <textarea ref={textAreaRef} className='text-area' placeholder={placeholder} onChange={onChange}/>
+            <textarea ref={textAreaRef} className='text-area' placeholder={placeholder} defaultValue={defaultValue} onChange={onChange}/>
         </form>
     );
 }

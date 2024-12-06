@@ -1,13 +1,17 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Header from '../components/Header/Header';
 import {useNavContext} from '../context/NavContext';
 import {useNavigate} from 'react-router-dom';
 import TextArea from '../components/TextArea/TextArea';
 import ProceedButton from '../atoms/Button/ProceedButton';
+import {useFormContext} from '../context/FormContext';
 
 
 const Reflect = () => {
-    const [isSectionComplete, setIsSectionComplete] = useState(false);
+    const formContext = useFormContext();
+
+    const [isSectionComplete, setIsSectionComplete] = useState(() =>
+        formContext?.reflectionText !== undefined && formContext?.reflectionText !== null);
     const navContext = useNavContext();
     const navigate = useNavigate();
 
@@ -17,13 +21,23 @@ const Reflect = () => {
         }
     }
 
-    // TODO: onChange handler
+    useEffect(() => {
+        if (formContext?.predictionText && formContext.predictionText.length > 0) {
+            setIsSectionComplete(true);
+        } else {
+            setIsSectionComplete(false);
+        }
+    }, [formContext?.reflectionText]);
 
     return (
         <>
             <Header title='Reflect.' subtitle='Some subtitle' sectionComplete={isSectionComplete}/>
 
-            <TextArea placeholder={`Reflect on the activity you just did. Optionally write something here to view later.`} setIsSectionComplete={setIsSectionComplete}/>
+            <TextArea
+                placeholder='Reflect on the activity you just did. Optionally write something here to view later.'
+                defaultValue={formContext?.reflectionText}
+                setDefaultValue={formContext?.setReflectionText}
+            />
 
             <ProceedButton text='Finish' status={isSectionComplete ? 'active' : 'disabled'} onClick={navigateToNextPage} />
         </>
