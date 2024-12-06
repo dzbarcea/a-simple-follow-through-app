@@ -39,15 +39,46 @@ const FormContext = createContext<FormContextType | null>(null);
 export const useFormContext = () => useContext(FormContext);
 
 const FormContextProvider = ({ children } : { children: ReactNode }) => {
-    const [selectionList, setSelectionList] = useState<SelectionType[]>([]);
-    const [predictionText, setPredictionText] = useState('');
-    const [reflectionText, setReflectionText] = useState('');
-    const [presetList, setPresetList] = useState<PresetType[]>([]);
+    const [selectionList, setSelectionList] = useState<SelectionType[]>(() => {
+        try {
+            const initialSelections = localStorage.getItem('selectionList');
+            return initialSelections ? JSON.parse(initialSelections) : [];
+        } catch (error) {
+            console.error(error);
+            return [];
+        }
+    });
+    const [predictionText, setPredictionText] = useState<string>(() => {
+        try {
+            const initialPrediction = localStorage.getItem('predictionText');
+            return initialPrediction ? JSON.parse(initialPrediction) : '';
+        } catch (error) {
+            console.error(error);
+            return '';
+        }
+    });
+    const [reflectionText, setReflectionText] = useState<string>(() => {
+        try {
+            const initialReflection = localStorage.getItem('predictionText');
+            return initialReflection ? JSON.parse(initialReflection) : '';
+        } catch (error) {
+            console.error(error);
+            return '';
+        }
+    });
+    const [presetList, setPresetList] = useState<PresetType[]>(() => {
+        try {
+            const initialPresets = localStorage.getItem('presetList');
+            return initialPresets ? JSON.parse(initialPresets) : [];
+        } catch (error) {
+            console.error(error);
+            return [];
+        }
+    });
 
     useEffect(() => {
         //TODO: fetch initial state from local storage
-
-        const selections = [
+        let selections = [
             {
                 name: 'Activity 1',
                 id: uuidv4()
@@ -57,14 +88,37 @@ const FormContextProvider = ({ children } : { children: ReactNode }) => {
                 id: uuidv4()
             },
         ];
+        let presets = [];
+
+        const localStorageSelections = localStorage.getItem('selectionList');
+        if (localStorageSelections) {
+            selections = JSON.parse(localStorageSelections);
+        }
+
+        const localStoragePresets = localStorage.getItem('presetList');
+        if (localStoragePresets) {
+            presets = JSON.parse(localStoragePresets);
+        }
 
         setSelectionList(selections);
+        setPresetList(presets);
     }, []);
 
     useEffect(() => {
-        // console.log(selectionList);
-        // console.log(presetList);
-    }, [selectionList, presetList]);
+        localStorage.setItem('selectionList', JSON.stringify(selectionList));
+    }, [selectionList]);
+
+    useEffect(() => {
+        localStorage.setItem('presetList', JSON.stringify(presetList));
+    }, [presetList]);
+
+    useEffect(() => {
+        localStorage.setItem('predictionText', JSON.stringify(predictionText));
+    }, [predictionText]);
+
+    useEffect(() => {
+        localStorage.setItem('reflectionText', JSON.stringify(reflectionText));
+    }, [reflectionText]);
 
     return (
         <FormContext.Provider value={{
