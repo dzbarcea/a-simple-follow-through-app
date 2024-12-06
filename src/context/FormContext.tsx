@@ -93,7 +93,6 @@ const FormContextProvider = ({ children } : { children: ReactNode }) => {
     }, [selectionList]);
 
     useEffect(() => {
-        console.log('hi')
         localStorage.setItem('chosenSelectionId', JSON.stringify(chosenSelectionId));
     }, [chosenSelectionId]);
 
