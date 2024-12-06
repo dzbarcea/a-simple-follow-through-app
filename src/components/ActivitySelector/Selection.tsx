@@ -1,7 +1,8 @@
-import React, {MouseEventHandler, useRef} from 'react';
+import React, {useRef} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPencil} from '@fortawesome/free-solid-svg-icons/faPencil';
 import {faTrash} from '@fortawesome/free-solid-svg-icons/faTrash';
+import {useFormContext} from '../../context/FormContext';
 
 interface SelectionProps {
     name: string;
@@ -11,11 +12,20 @@ interface SelectionProps {
 }
 
 const Selection = ({ name, idKey, handleDelete, handleOpenModal }: SelectionProps) => {
+    const formContext = useFormContext();
     const selectionRef = useRef<HTMLLabelElement>(null);
 
+    const handleClick = () => {
+        if (!formContext) {
+            return;
+        }
+
+        formContext.setChosenSelectionId(idKey);
+    }
+
     return (
-        <label ref={selectionRef} className='selection'>
-            <input type='radio' name='activity'/>
+        <label ref={selectionRef} className='selection' onClick={handleClick}>
+            <input type='radio' name='activity' defaultChecked={formContext?.chosenSelectionId === idKey}/>
             <span>{name}</span>
 
             <div>

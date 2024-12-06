@@ -1,31 +1,40 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Header from '../components/Header/Header';
 import ProceedButton from '../atoms/Button/ProceedButton';
 import ActivitySelector from '../components/ActivitySelector/ActivitySelector';
 import {useNavContext} from '../context/NavContext';
 import {useNavigate} from 'react-router-dom';
+import {useFormContext} from '../context/FormContext';
 
 
 const PickActivity = () => {
+    const formContext = useFormContext();
+
     const [hasSelection, setHasSelection] = useState(false);
     const navContext = useNavContext();
     const navigate = useNavigate();
 
     const navigateToNextPage = () => {
-        if(hasSelection && navContext?.nextPath) {
+        if(formContext?.chosenSelectionId && navContext?.nextPath) {
             navigate(navContext.nextPath);
         }
     }
 
-    // TODO: use useEffect with empty dependency array to submit the form when unmounted
+    useEffect(() => {
+        if (formContext?.chosenSelectionId) {
+            setHasSelection(true);
+        } else {
+            setHasSelection(false);
+        }
+    }, [formContext?.chosenSelectionId]);
 
     return (
         <>
             <Header title='Pick an activity.' subtitle='Some subtitle' sectionComplete={hasSelection}/>
 
-            <ActivitySelector onChange={() => setHasSelection(true)}/>
+            <ActivitySelector/>
 
-            <ProceedButton text='Predict' status={hasSelection ? 'active' : 'disabled'} onClick={navigateToNextPage} />
+            <ProceedButton text='Predict' status={formContext?.chosenSelectionId ? 'active' : 'disabled'} onClick={navigateToNextPage} />
         </>
     );
 }

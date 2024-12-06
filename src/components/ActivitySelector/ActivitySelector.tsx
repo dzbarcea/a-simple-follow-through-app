@@ -13,11 +13,8 @@ import {v4 as uuidv4} from 'uuid';
 import {faTrash} from '@fortawesome/free-solid-svg-icons/faTrash';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
-interface ActivitySelectorProps {
-    onChange: () => void;
-}
 
-const ActivitySelector = (props: ActivitySelectorProps) => {
+const ActivitySelector = () => {
     // Handles modal state for editing selections
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [currentlyEditingSelection, setCurrentlyEditingSelection] = useState<SelectionType | null>(null);
@@ -90,10 +87,12 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
         }
     }
 
-    const handleDelete = (idToDelete: string) => {
+    const handleDeleteSelection = (idToDelete: string) => {
         if (!formContext) {
             return;
         }
+
+        console.log(formContext.selectionList);
 
         formContext.setSelectionList(selectionList => selectionList.filter((selection) => {
             return selection.id !== idToDelete;
@@ -181,7 +180,7 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
 
     return (
         <>
-            <form className='activity-selector' onChange={props.onChange}>
+            <form className='activity-selector'>
                 {
                     formContext &&
                     formContext.selectionList.map(selection => {
@@ -190,7 +189,7 @@ const ActivitySelector = (props: ActivitySelectorProps) => {
                             key={selection.id}
                             idKey={selection.id}
                             handleOpenModal={handleOpenEditModal}
-                            handleDelete={handleDelete}
+                            handleDelete={handleDeleteSelection}
                         />
                     })
                 }
