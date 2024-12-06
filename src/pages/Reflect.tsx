@@ -16,6 +16,8 @@ const Reflect = () => {
     const navigate = useNavigate();
 
     const navigateToNextPage = () => {
+        formContext?.submitForm();
+
         if(isSectionComplete && navContext?.nextPath) {
             navigate(navContext.nextPath);
         }

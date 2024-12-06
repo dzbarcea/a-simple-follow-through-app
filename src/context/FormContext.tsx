@@ -32,6 +32,9 @@ export interface FormContextType {
     setPredictionText: (predictionText: string) => void;
     setReflectionText: (reflectionText: string) => void;
     setPresetList: Dispatch<SetStateAction<PresetType[]>>
+
+    // Submission form
+    submitForm: () => void;
 }
 
 const FormContext = createContext<FormContextType | null>(null);
@@ -120,6 +123,17 @@ const FormContextProvider = ({ children } : { children: ReactNode }) => {
         localStorage.setItem('reflectionText', JSON.stringify(reflectionText));
     }, [reflectionText]);
 
+    const submitForm = () => {
+
+        // TODO: add this to local storage and view it later
+
+        // Clear local storage for predictions and reflections
+        setPredictionText('');
+        setReflectionText('');
+        localStorage.setItem('predictionText', '');
+        localStorage.setItem('reflectionText', '');
+    }
+
     return (
         <FormContext.Provider value={{
             selectionList: selectionList,
@@ -130,6 +144,7 @@ const FormContextProvider = ({ children } : { children: ReactNode }) => {
             setReflectionText: setReflectionText,
             presetList: presetList,
             setPresetList: setPresetList,
+            submitForm: submitForm
         }}>
             {children}
         </FormContext.Provider>
