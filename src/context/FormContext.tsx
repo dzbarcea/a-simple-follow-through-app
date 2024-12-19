@@ -20,6 +20,14 @@ export interface PresetType {
     selectionList: SelectionType[];
 }
 
+export interface SessionData {
+    date: Date;
+    selectionList: SelectionType[];
+    chosenSelectionName: string;
+    predictionText: string;
+    reflectionText: string;
+}
+
 export interface FormContextType {
     // Values
     selectionList: SelectionType[];
@@ -27,6 +35,7 @@ export interface FormContextType {
     predictionText: string;
     reflectionText?: string;
     presetList: PresetType[];
+    pastSessions: SessionData[]; // Stores all past sessions
 
     // Setters
     setSelectionList: Dispatch<SetStateAction<SelectionType[]>>
@@ -34,6 +43,7 @@ export interface FormContextType {
     setPredictionText: (predictionText: string) => void;
     setReflectionText: (reflectionText: string) => void;
     setPresetList: Dispatch<SetStateAction<PresetType[]>>
+    setPastSessions: Dispatch<SetStateAction<SessionData[]>>;
 
     // Submission form
     submitForm: () => void;
@@ -59,34 +69,7 @@ const FormContextProvider = ({ children } : { children: ReactNode }) => {
     const [predictionText, setPredictionText] = useState<string>(useLocalStorage('predictionText', ''));
     const [reflectionText, setReflectionText] = useState<string>(useLocalStorage('reflectionText', ''));
     const [presetList, setPresetList] = useState<PresetType[]>(useLocalStorage('presetList', []));
-
-    useEffect(() => {
-        //TODO: fetch initial state from local storage
-        let selections = [
-            {
-                name: 'Activity 1',
-                id: uuidv4()
-            },
-            {
-                name: 'Activity 2',
-                id: uuidv4()
-            },
-        ];
-        let presets = [];
-
-        const localStorageSelections = localStorage.getItem('selectionList');
-        if (localStorageSelections) {
-            selections = JSON.parse(localStorageSelections);
-        }
-
-        const localStoragePresets = localStorage.getItem('presetList');
-        if (localStoragePresets) {
-            presets = JSON.parse(localStoragePresets);
-        }
-
-        setSelectionList(selections);
-        setPresetList(presets);
-    }, []);
+    const [pastSessions, setPastSessions] = useState<SessionData[]>(useLocalStorage('pastSessions', []));
 
     useEffect(() => {
         localStorage.setItem('selectionList', JSON.stringify(selectionList));
@@ -108,9 +91,32 @@ const FormContextProvider = ({ children } : { children: ReactNode }) => {
         localStorage.setItem('reflectionText', JSON.stringify(reflectionText));
     }, [reflectionText]);
 
+    useEffect(() => {
+        localStorage.setItem('pastSessions', JSON.stringify(pastSessions));
+    }, [pastSessions]);
+
     const submitForm = () => {
 
-        // TODO: add form data to local storage and view it later
+        // Gather the session data
+        const currentDate = new Date();
+        let selectedActivity = '';
+        for (const selection of selectionList) {
+            if (selection.id === chosenSelectionId) {
+                selectedActivity = selection.name;
+            }
+        }
+
+        const sessionData: SessionData = {
+            date: currentDate,
+            selectionList: selectionList,
+            chosenSelectionName: selectedActivity,
+            predictionText: predictionText,
+            reflectionText: reflectionText,
+        }
+
+        // Add past sessions to local storage for future viewing
+        setPastSessions(pastSessions => [...pastSessions, sessionData]);
+        localStorage.setItem('pastSessions', JSON.stringify(pastSessions));
 
         // Clear local storage for predictions and reflections
         setPredictionText('');
@@ -133,6 +139,8 @@ const FormContextProvider = ({ children } : { children: ReactNode }) => {
             setReflectionText: setReflectionText,
             presetList: presetList,
             setPresetList: setPresetList,
+            pastSessions: pastSessions,
+            setPastSessions: setPastSessions,
             submitForm: submitForm
         }}>
             {children}

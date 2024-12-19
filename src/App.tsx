@@ -5,6 +5,7 @@ import NavContextProvider from './context/NavContext';
 import Predict from './pages/Predict';
 import Reflect from './pages/Reflect';
 import FormContextProvider from './context/FormContext';
+import PastSessions from './pages/PastSessions';
 
 const App = () => {
     return (
@@ -23,6 +24,7 @@ const App = () => {
                             <Route path='/pick-activity' element={<PickActivity/>}/>
                             <Route path='/predict' element={<Predict/>}/>
                             <Route path='/reflect' element={<Reflect/>}/>
+                            <Route path='/past-sessions' element={<PastSessions/>}/>
                         </Route>
                     </Routes>
                 </FormContextProvider>

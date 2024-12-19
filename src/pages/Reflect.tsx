@@ -15,7 +15,7 @@ const Reflect = () => {
     const navContext = useNavContext();
     const navigate = useNavigate();
 
-    const navigateToNextPage = () => {
+    const handleSubmit = () => {
         formContext?.submitForm();
 
         if(isSectionComplete && navContext?.nextPath) {
@@ -41,7 +41,7 @@ const Reflect = () => {
                 setDefaultValue={formContext?.setReflectionText}
             />
 
-            <ProceedButton text='Finish' status={isSectionComplete ? 'active' : 'disabled'} onClick={navigateToNextPage} />
+            <ProceedButton text='Finish' status={isSectionComplete ? 'active' : 'disabled'} onClick={handleSubmit} />
         </>
     );
 }
