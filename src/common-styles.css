@@ -45,6 +45,11 @@ p,a,button,label,input,textarea {
     font-size: 1.5rem;
 }
 
+a:hover {
+    cursor: pointer;
+    color: var(--text-faded);
+}
+
 input {
     background: none;
     border: 2px solid var(--text-main);
