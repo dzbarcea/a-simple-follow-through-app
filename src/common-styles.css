@@ -45,6 +45,11 @@ p,a,button,label,input,textarea {
     font-size: 1.5rem;
 }
 
+a {
+    font-size: 1.125rem;
+    text-decoration: none;
+}
+
 a:hover {
     cursor: pointer;
     color: var(--text-faded);
@@ -81,6 +86,13 @@ input {
     padding: 7.5rem 0;
 }
 
+.flex-column-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
 .button-primary {
     background-color: var(--text-main);
     color: var(--primary-main);
@@ -94,6 +106,18 @@ input {
 }
 
 .button-secondary:hover {
+    cursor: pointer;
+    color: var(--text-faded);
+}
+
+.back-button {
+    display: flex;
+    align-items: center;
+    align-self: start;
+    gap: 0.5rem;
+}
+
+.back-button:hover {
     cursor: pointer;
     color: var(--text-faded);
 }

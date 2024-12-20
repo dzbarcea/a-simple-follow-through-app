@@ -34,7 +34,13 @@ const PickActivity = () => {
 
             <ActivitySelector/>
 
-            <ProceedButton text='Predict' status={formContext?.chosenSelectionId ? 'active' : 'disabled'} onClick={navigateToNextPage} />
+            <div className='flex-column-container'>
+                <ProceedButton text='Predict' status={formContext?.chosenSelectionId ? 'active' : 'disabled'}
+                               onClick={navigateToNextPage}/>
+
+                <a href='/past-sessions'>View past sessions</a>
+            </div>
+
         </>
     );
 }

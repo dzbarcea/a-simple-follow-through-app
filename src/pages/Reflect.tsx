@@ -41,7 +41,10 @@ const Reflect = () => {
                 setDefaultValue={formContext?.setReflectionText}
             />
 
-            <ProceedButton text='Finish' status={isSectionComplete ? 'active' : 'disabled'} onClick={handleSubmit} />
+            <div className='flex-column-container'>
+                <ProceedButton text='Finish' status={isSectionComplete ? 'active' : 'disabled'} onClick={handleSubmit} />
+                <a href='/past-sessions'>View past sessions</a>
+            </div>
         </>
     );
 }

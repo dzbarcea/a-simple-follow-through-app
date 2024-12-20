@@ -2,6 +2,8 @@ import React from 'react';
 import {useFormContext} from '../context/FormContext';
 import Header from '../components/Header/Header';
 import {useNavigate} from 'react-router-dom';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faArrowLeft} from '@fortawesome/free-solid-svg-icons/faArrowLeft';
 
 interface PastSessionsProps {
 
@@ -22,9 +24,10 @@ const PastSessions = (props: PastSessionsProps) => {
 
     return (
         <>
-            <a onClick={handleBackNavigation}>
+            <button type='button' className='back-button' onClick={handleBackNavigation}>
+                <FontAwesomeIcon icon={faArrowLeft} />
                 Go Back
-            </a>
+            </button>
 
             <Header
                 title='Your past sessions'
