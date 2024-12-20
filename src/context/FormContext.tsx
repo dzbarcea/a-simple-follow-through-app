@@ -21,7 +21,8 @@ export interface PresetType {
 }
 
 export interface SessionData {
-    date: Date;
+    date: string;
+    id: string;
     selectionList: SelectionType[];
     chosenSelectionName: string;
     predictionText: string;
@@ -64,7 +65,16 @@ const useLocalStorage = (field: string, defaultValue: any) => {
 }
 
 const FormContextProvider = ({ children } : { children: ReactNode }) => {
-    const [selectionList, setSelectionList] = useState<SelectionType[]>(useLocalStorage('selectionList', []));
+    const [selectionList, setSelectionList] = useState<SelectionType[]>(useLocalStorage('selectionList', [
+        {
+            name: 'Example Activity',
+            id: uuidv4()
+        },
+        {
+            name: 'Example Activity 2',
+            id: uuidv4()
+        },
+    ]));
     const [chosenSelectionId, setChosenSelectionId] = useState(useLocalStorage('chosenSelectionId', ''));
     const [predictionText, setPredictionText] = useState<string>(useLocalStorage('predictionText', ''));
     const [reflectionText, setReflectionText] = useState<string>(useLocalStorage('reflectionText', ''));
@@ -98,7 +108,11 @@ const FormContextProvider = ({ children } : { children: ReactNode }) => {
     const submitForm = () => {
 
         // Gather the session data
-        const currentDate = new Date();
+        const currentDate = new Date().toLocaleDateString('en-US', {
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric'
+        });
         let selectedActivity = '';
         for (const selection of selectionList) {
             if (selection.id === chosenSelectionId) {
@@ -108,6 +122,7 @@ const FormContextProvider = ({ children } : { children: ReactNode }) => {
 
         const sessionData: SessionData = {
             date: currentDate,
+            id: uuidv4(),
             selectionList: selectionList,
             chosenSelectionName: selectedActivity,
             predictionText: predictionText,

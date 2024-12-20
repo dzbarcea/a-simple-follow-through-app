@@ -5,7 +5,7 @@ import NavContextProvider from './context/NavContext';
 import Predict from './pages/Predict';
 import Reflect from './pages/Reflect';
 import FormContextProvider from './context/FormContext';
-import PastSessions from './pages/PastSessions';
+import PastSessions from './pages/PastSessions/PastSessions';
 
 const App = () => {
     return (
