@@ -40,7 +40,11 @@ const Predict = () => {
                 setDefaultValue={formContext?.setPredictionText}
             />
 
-            <ProceedButton text='Reflect' status={formContext?.predictionText ? 'active' : 'disabled'} onClick={navigateToNextPage} />
+            <div className='flex-column-container'>
+                <ProceedButton text='Reflect' status={formContext?.predictionText ? 'active' : 'disabled'} onClick={navigateToNextPage} />
+                <a href='/past-sessions'>View past sessions</a>
+            </div>
+
         </>
     );
 }

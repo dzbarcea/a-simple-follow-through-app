@@ -4,7 +4,8 @@ import {useLocation} from 'react-router-dom';
 const navStack = [
     '/pick-activity',
     '/predict',
-    '/reflect'
+    '/reflect',
+    '/past-sessions'
 ];
 
 interface NavContextType {

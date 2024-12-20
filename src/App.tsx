@@ -5,6 +5,8 @@ import NavContextProvider from './context/NavContext';
 import Predict from './pages/Predict';
 import Reflect from './pages/Reflect';
 import FormContextProvider from './context/FormContext';
+import PastSessions from './pages/PastSessions/PastSessions';
+import Session from './pages/Session/Session';
 
 const App = () => {
     return (
@@ -23,6 +25,10 @@ const App = () => {
                             <Route path='/pick-activity' element={<PickActivity/>}/>
                             <Route path='/predict' element={<Predict/>}/>
                             <Route path='/reflect' element={<Reflect/>}/>
+                            <Route path='/past-sessions' element={<Outlet/>}>
+                                <Route index element={<PastSessions/>}/>
+                                <Route path='*' element={<Session/>}/>
+                            </Route>
                         </Route>
                     </Routes>
                 </FormContextProvider>
