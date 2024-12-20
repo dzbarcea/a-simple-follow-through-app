@@ -17,9 +17,12 @@ const PastSessions = (props: PastSessionsProps) => {
     const navigate = useNavigate();
 
     const handleBackNavigation = () => {
-        if (!formContext?.chosenSelectionId || !formContext.predictionText) {
+        if (!formContext?.chosenSelectionId) {
             navigate('/');
-        } else {
+        } else if (!formContext.predictionText) {
+            navigate('/predict')
+        }
+        else {
             navigate(-1); // Go back one page
         }
     }
