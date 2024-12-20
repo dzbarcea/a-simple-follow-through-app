@@ -30,7 +30,19 @@ const PickActivity = () => {
 
     return (
         <>
-            <Header title='Pick an activity.' subtitle='Some subtitle' sectionComplete={hasSelection}/>
+            <Header
+                title='Pick an action.'
+                subtitle='List two or more things you want to do, then choose one'
+                sectionComplete={hasSelection}
+                tooltipText={
+                    <>
+                        Choosing one action out of many activates our brain's sense of agency, making it
+                        more likely to continue that behavior.
+                        This is called <span style={{color: 'var(--primary-light)'}}>Voluntary Action</span>,
+                        the first step in Intentional Binding.
+                    </>
+                }
+            />
 
             <ActivitySelector/>
 

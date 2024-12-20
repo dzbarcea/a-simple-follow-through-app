@@ -33,7 +33,17 @@ const Reflect = () => {
 
     return (
         <>
-            <Header title='Reflect.' subtitle='Some subtitle' sectionComplete={isSectionComplete}/>
+            <Header
+                title='Reflect.'
+                subtitle={`Take as long as you'd like, but think deeply`}
+                sectionComplete={isSectionComplete}
+                tooltipText={
+                    <>
+                        <span style={{color: 'var(--primary-light)'}}>Reflection</span> tightens the link
+                        between action and outcome, making them seem closer together.
+                    </>
+                }
+            />
 
             <TextArea
                 placeholder='Reflect on the activity you just did. Optionally write something here to view later.'
@@ -42,7 +52,8 @@ const Reflect = () => {
             />
 
             <div className='flex-column-container'>
-                <ProceedButton text='Finish' status={isSectionComplete ? 'active' : 'disabled'} onClick={handleSubmit} />
+                <ProceedButton text='Finish' status={isSectionComplete ? 'active' : 'disabled'}
+                               onClick={handleSubmit}/>
                 <a href='/past-sessions'>View past sessions</a>
             </div>
         </>

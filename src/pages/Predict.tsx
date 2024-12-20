@@ -32,7 +32,17 @@ const Predict = () => {
 
     return (
         <>
-            <Header title='Make a prediction.' subtitle='Some subtitle' sectionComplete={isSectionComplete}/>
+            <Header
+                title='Make a prediction.'
+                subtitle='Predict the outcome of the activity you chose'
+                sectionComplete={isSectionComplete}
+                tooltipText={
+                    <>
+                        This reinforces the link between an action and its outcome,
+                        giving us a stronger sense that our actions produce positive results.
+                    </>
+                }
+            />
             
             <TextArea
                 placeholder='Type a prediction for the outcome of the activity you chose.'

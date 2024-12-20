@@ -1,0 +1,46 @@
+.tooltip-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    height: 2.5rem;
+    aspect-ratio: 1/1;
+    font-size: 1.5rem;
+    color: var(--text-main);
+
+    border: 3px solid var(--text-main);
+    border-radius: 99rem;
+}
+
+.tooltip-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    position: absolute;
+    top: 105%;
+    cursor: default;
+
+    background-color: var(--background-light);
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    min-width: 24rem;
+    z-index: 10;
+    visibility: visible;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.tooltip-container:hover .tooltip-box {
+    visibility: visible;
+    opacity: 1;
+}
+
+.tooltip-link {
+    text-decoration: underline;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+}

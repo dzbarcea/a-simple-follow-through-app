@@ -13,9 +13,11 @@
     --text-light: #BAB2C2;
     --text-faded: #6B6770;
 
-    --primary-light: #6E92DA;
+    --primary-light: #81a4ef;
     --primary-main: #2B4270;
     --primary-dark: #212A3C;
+
+    --background-light: #232329;
 
     --hover: #c2bbc6;
 }
@@ -35,6 +37,10 @@ h1,h2,h3,h4,h5,h6,p,button,a,label,input,textarea,ul {
     font-family: 'Gabarito', sans-serif;
 }
 
+b {
+    font-weight: 600;
+}
+
 h1 {
     font-size: 4rem;
 }
@@ -46,6 +52,15 @@ h2 {
 
 h3 {
     font-size: 1.5rem;
+}
+
+.faded-text {
+    font-weight: 400;
+    color: var(--text-light);
+}
+
+.faded-text span:not(:first-child)::before {
+    content: ' · ';
 }
 
 p,a,button,label,input,textarea {
@@ -60,6 +75,10 @@ a {
 a:hover {
     cursor: pointer;
     color: var(--text-faded);
+}
+
+.small-text {
+    font-size: 1rem;
 }
 
 input {
@@ -133,4 +152,10 @@ input {
 .back-button:hover {
     cursor: pointer;
     color: var(--text-faded);
+}
+
+.title-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
 }
