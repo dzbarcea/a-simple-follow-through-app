@@ -1,0 +1,18 @@
+.session-field-display {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 0.5rem;
+
+    flex: 1;
+    width: 100%;
+}
+
+.faded-text {
+    font-weight: 400;
+    color: var(--text-light);
+}
+
+.faded-text span:not(:first-child)::before {
+    content: ' · ';
+}

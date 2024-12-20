@@ -7,13 +7,14 @@ interface ButtonProps {
     text: string;
     status: 'active' | 'disabled';
     onClick: () => void;
+    hasIcon?: boolean;
 }
 
-const ProceedButton = ({ text, status, onClick }: ButtonProps) => {
+const ProceedButton = ({ text, status, onClick, hasIcon=true }: ButtonProps) => {
     return (
         <button type='button' className={`button button-${status}`} onClick={onClick}>
             {text}
-            <FontAwesomeIcon icon={faArrowDown} />
+            {hasIcon && <FontAwesomeIcon icon={faArrowDown} />}
         </button>
     );
 }

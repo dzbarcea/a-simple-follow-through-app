@@ -8,11 +8,7 @@ import {faArrowRight} from '@fortawesome/free-solid-svg-icons/faArrowRight';
 import ProceedButton from '../../atoms/Button/ProceedButton';
 import './PastSessions.css';
 
-interface PastSessionsProps {
-
-}
-
-const PastSessions = (props: PastSessionsProps) => {
+const PastSessions = () => {
     const formContext = useFormContext();
     const navigate = useNavigate();
 
@@ -63,6 +59,7 @@ const PastSessions = (props: PastSessionsProps) => {
                             type='button'
                             className='selection'
                             key={session.id}
+                            onClick={() => navigate(`/past-sessions/${session.id}`)}
                         >
                             {session.chosenSelectionName}
                             <FontAwesomeIcon icon={faArrowRight} />
@@ -79,7 +76,7 @@ const PastSessions = (props: PastSessionsProps) => {
         <>
             <button type='button' className='back-button' onClick={handleBackNavigation}>
                 <FontAwesomeIcon icon={faArrowLeft} />
-                Go Back
+                Go back
             </button>
 
             <Header
@@ -93,7 +90,12 @@ const PastSessions = (props: PastSessionsProps) => {
                 {renderPastSessionsByDate()}
             </div>
 
-            <ProceedButton text='Start a session' status='active' onClick={() => navigate('/')} />
+            <ProceedButton
+                text='Start a session'
+                status='active'
+                onClick={() => navigate('/')}
+                hasIcon={false}
+            />
         </>
     );
 }
