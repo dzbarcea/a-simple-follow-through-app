@@ -130,7 +130,7 @@ const FormContextProvider = ({ children } : { children: ReactNode }) => {
         }
 
         // Add past sessions to local storage for future viewing
-        setPastSessions(pastSessions => [...pastSessions, sessionData]);
+        setPastSessions(pastSessions => [sessionData, ...pastSessions]); // Recent at the top
         localStorage.setItem('pastSessions', JSON.stringify(pastSessions));
 
         // Clear local storage for predictions and reflections
