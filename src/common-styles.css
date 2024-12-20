@@ -31,10 +31,14 @@
     color: var(--text-faded);
 }
 
-h1,h2,h3,h4,h5,h6,p,button,a,label,input,textarea,ul {
+h1,h2,h3,h4,h5,h6,p,button,a,label,input,textarea,ul,ol {
     font-weight: 400;
     color: var(--text-main);
     font-family: 'Gabarito', sans-serif;
+}
+
+section * {
+    padding-bottom: 0.25rem;
 }
 
 b {
@@ -63,7 +67,7 @@ h3 {
     content: ' · ';
 }
 
-p,a,button,label,input,textarea {
+p,a,button,label,input,textarea,ul,ol {
     font-size: 1.5rem;
 }
 
@@ -158,4 +162,27 @@ input {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* UTILITIES */
+
+/* Font Size */
+.fs-16 {
+    font-size: 1rem;
+}
+
+.fs-20 {
+    font-size: 1.25rem;
+}
+
+/* Padding */
+
+.pd-160 {
+    padding: 0 20rem;
 }

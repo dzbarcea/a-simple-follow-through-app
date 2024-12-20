@@ -7,6 +7,7 @@ import Reflect from './pages/Reflect';
 import FormContextProvider from './context/FormContext';
 import PastSessions from './pages/PastSessions/PastSessions';
 import Session from './pages/Session/Session';
+import Learn from './pages/Learn';
 
 const App = () => {
     return (
@@ -30,6 +31,7 @@ const App = () => {
                                 <Route path='*' element={<Session/>}/>
                             </Route>
                         </Route>
+                        <Route path='/learn' element={<Learn/>}/>
                     </Routes>
                 </FormContextProvider>
             </NavContextProvider>
