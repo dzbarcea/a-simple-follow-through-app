@@ -74,7 +74,7 @@ const PastSessions = () => {
 
             <Header
                 title='Your past sessions'
-                subtitle={`These are the activities you've done so far`}
+                subtitle={`Click on a session for more details`}
                 sectionComplete={true}
                 hasNavigation={false}
             />

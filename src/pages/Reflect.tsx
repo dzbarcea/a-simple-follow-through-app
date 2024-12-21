@@ -46,7 +46,7 @@ const Reflect = () => {
             />
 
             <TextArea
-                placeholder='Reflect on the activity you just did. Optionally write something here to view later.'
+                placeholder='(Optional) Type something...'
                 defaultValue={formContext?.reflectionText}
                 setDefaultValue={formContext?.setReflectionText}
             />

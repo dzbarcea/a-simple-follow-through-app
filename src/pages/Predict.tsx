@@ -34,7 +34,7 @@ const Predict = () => {
         <>
             <Header
                 title='Make a prediction.'
-                subtitle='Predict the outcome of the activity you chose'
+                subtitle='Predict the outcome of the action you chose'
                 sectionComplete={isSectionComplete}
                 tooltipText={
                     <>
@@ -45,7 +45,7 @@ const Predict = () => {
             />
             
             <TextArea
-                placeholder='Type a prediction for the outcome of the activity you chose.'
+                placeholder='Type something...'
                 defaultValue={formContext?.predictionText}
                 setDefaultValue={formContext?.setPredictionText}
             />

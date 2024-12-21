@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import Header from '../components/Header/Header';
 import ProceedButton from '../atoms/Button/ProceedButton';
-import ActivitySelector from '../components/ActivitySelector/ActivitySelector';
+import ActionSelector from '../components/ActionSelector/ActionSelector';
 import {useNavContext} from '../context/NavContext';
 import {useNavigate} from 'react-router-dom';
 import {useFormContext} from '../context/FormContext';
 
 
-const PickActivity = () => {
+const PickAction = () => {
     const formContext = useFormContext();
 
     const [hasSelection, setHasSelection] = useState(false);
@@ -44,7 +44,7 @@ const PickActivity = () => {
                 }
             />
 
-            <ActivitySelector/>
+            <ActionSelector/>
 
             <div className='flex-column-container'>
                 <ProceedButton text='Predict' status={formContext?.chosenSelectionId ? 'active' : 'disabled'}
@@ -57,4 +57,4 @@ const PickActivity = () => {
     );
 }
 
-export default PickActivity;
+export default PickAction;
