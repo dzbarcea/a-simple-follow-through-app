@@ -36,8 +36,7 @@ const PickAction = () => {
                 sectionComplete={hasSelection}
                 tooltipText={
                     <>
-                        Choosing one action out of many activates our brain's sense of agency, making it
-                        more likely to continue that behavior.
+                        Choosing one action out of many activates our brain's sense of agency.
                         This is called <span style={{color: 'var(--primary-light)'}}>Voluntary Action</span>,
                         the first step in Intentional Binding.
                     </>

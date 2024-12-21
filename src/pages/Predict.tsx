@@ -38,7 +38,7 @@ const Predict = () => {
                 sectionComplete={isSectionComplete}
                 tooltipText={
                     <>
-                        This reinforces the link between an action and its outcome,
+                        This activates our <span style={{color: 'var(--primary-light)'}}>sense of cause-and-effect</span>,
                         giving us a stronger sense that our actions produce positive results.
                     </>
                 }
