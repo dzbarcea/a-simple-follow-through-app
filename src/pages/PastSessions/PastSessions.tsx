@@ -50,7 +50,7 @@ const PastSessions = () => {
                     {groupedSessions[date].map(session => (
                         <button
                             type='button'
-                            className='selection'
+                            className='bg-secondary selection'
                             key={session.id}
                             onClick={() => navigate(`/past-sessions/${session.id}`)}
                         >
