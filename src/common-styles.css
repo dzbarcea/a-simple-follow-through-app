@@ -10,12 +10,16 @@
     --cordovan: #8C4843;
 
     --text-main: #F8F1FF;
-    --text-light: #BAB2C2;
+    --text-light: #c0bac6;
     --text-faded: #6B6770;
 
     --primary-light: #81a4ef;
     --primary-main: #2B4270;
     --primary-dark: #212A3C;
+
+    --secondary-light: #e8d9a9;
+    --secondary-main: #e6c06b;
+    --secondary-dark: #a37d1f;
 
     --background-light: #232329;
 
@@ -63,12 +67,16 @@ h3 {
     color: var(--text-light);
 }
 
-.faded-text span:not(:first-child)::before {
+.horizontal-list span:not(:first-child)::before {
     content: ' · ';
 }
 
 p,a,button,label,input,textarea,ul,ol {
     font-size: 1.5rem;
+}
+
+ol, ul {
+    padding-left: 1.5rem;
 }
 
 a {
@@ -177,12 +185,20 @@ input {
     font-size: 1rem;
 }
 
+.fs-18 {
+    font-size: 1.125rem;
+}
+
 .fs-20 {
     font-size: 1.25rem;
 }
 
 /* Padding */
 
-.pd-160 {
-    padding: 0 20rem;
+.pd-10 {
+    padding: 0 10%;
+}
+
+.pd-20 {
+    padding: 0 20%;
 }
