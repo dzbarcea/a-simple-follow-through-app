@@ -12,6 +12,12 @@
 
     border: 3px solid var(--text-main);
     border-radius: 99rem;
+
+    @media screen and (max-width: 767px) {
+        display: none; /* remove tooltip on mobile (difficult to style) */
+        height: 1.75rem;
+        font-size: 1rem;
+    }
 }
 
 .tooltip-box {
@@ -30,6 +36,12 @@
     z-index: 10;
     visibility: visible;
     transition: opacity 0.2s ease-in-out;
+
+    @media screen and (max-width: 767px) {
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
 }
 
 .tooltip-container:hover .tooltip-box {
