@@ -67,11 +67,11 @@ const useLocalStorage = (field: string, defaultValue: any) => {
 const FormContextProvider = ({ children } : { children: ReactNode }) => {
     const [selectionList, setSelectionList] = useState<SelectionType[]>(useLocalStorage('selectionList', [
         {
-            name: 'Example Activity',
+            name: 'Example Action',
             id: uuidv4()
         },
         {
-            name: 'Example Activity 2',
+            name: 'Example Action 2',
             id: uuidv4()
         },
     ]));
@@ -113,10 +113,10 @@ const FormContextProvider = ({ children } : { children: ReactNode }) => {
             day: 'numeric',
             year: 'numeric'
         });
-        let selectedActivity = '';
+        let selectedAction = '';
         for (const selection of selectionList) {
             if (selection.id === chosenSelectionId) {
-                selectedActivity = selection.name;
+                selectedAction = selection.name;
             }
         }
 
@@ -124,7 +124,7 @@ const FormContextProvider = ({ children } : { children: ReactNode }) => {
             date: currentDate,
             id: uuidv4(),
             selectionList: selectionList,
-            chosenSelectionName: selectedActivity,
+            chosenSelectionName: selectedAction,
             predictionText: predictionText,
             reflectionText: reflectionText,
         }

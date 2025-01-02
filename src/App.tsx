@@ -1,12 +1,13 @@
 import React from 'react';
 import {BrowserRouter, Navigate, Outlet, Route, Routes} from 'react-router-dom';
-import PickActivity from './pages/PickActivity';
+import PickAction from './pages/PickAction';
 import NavContextProvider from './context/NavContext';
 import Predict from './pages/Predict';
 import Reflect from './pages/Reflect';
 import FormContextProvider from './context/FormContext';
 import PastSessions from './pages/PastSessions/PastSessions';
 import Session from './pages/Session/Session';
+import Learn from './pages/Learn';
 
 const App = () => {
     return (
@@ -21,8 +22,8 @@ const App = () => {
                                 </div>
                             </div>
                         }>
-                            <Route index element={<Navigate to='/pick-activity' replace={true} />}/>
-                            <Route path='/pick-activity' element={<PickActivity/>}/>
+                            <Route index element={<Navigate to='/pick-action' replace={true} />}/>
+                            <Route path='/pick-action' element={<PickAction/>}/>
                             <Route path='/predict' element={<Predict/>}/>
                             <Route path='/reflect' element={<Reflect/>}/>
                             <Route path='/past-sessions' element={<Outlet/>}>
@@ -30,6 +31,7 @@ const App = () => {
                                 <Route path='*' element={<Session/>}/>
                             </Route>
                         </Route>
+                        <Route path='/learn' element={<Learn/>}/>
                     </Routes>
                 </FormContextProvider>
             </NavContextProvider>

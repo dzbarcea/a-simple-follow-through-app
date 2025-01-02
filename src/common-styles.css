@@ -10,12 +10,18 @@
     --cordovan: #8C4843;
 
     --text-main: #F8F1FF;
-    --text-light: #BAB2C2;
+    --text-light: #c0bac6;
     --text-faded: #6B6770;
 
-    --primary-light: #6E92DA;
+    --primary-light: #81a4ef;
     --primary-main: #2B4270;
     --primary-dark: #212A3C;
+
+    --secondary-light: #e8d9a9;
+    --secondary-main: #e6c06b;
+    --secondary-dark: #a37d1f;
+
+    --background-light: #232329;
 
     --hover: #c2bbc6;
 }
@@ -29,10 +35,18 @@
     color: var(--text-faded);
 }
 
-h1,h2,h3,h4,h5,h6,p,button,a,label,input,textarea,ul {
+h1,h2,h3,h4,h5,h6,p,button,a,label,input,textarea,ul,ol {
     font-weight: 400;
     color: var(--text-main);
     font-family: 'Gabarito', sans-serif;
+}
+
+section * {
+    padding-bottom: 0.25rem;
+}
+
+b {
+    font-weight: 600;
 }
 
 h1 {
@@ -48,8 +62,21 @@ h3 {
     font-size: 1.5rem;
 }
 
-p,a,button,label,input,textarea {
+.faded-text {
+    font-weight: 400;
+    color: var(--text-light);
+}
+
+.horizontal-list span:not(:first-child)::before {
+    content: ' · ';
+}
+
+p,a,button,label,input,textarea,ul,ol {
     font-size: 1.5rem;
+}
+
+ol, ul {
+    padding-left: 1.5rem;
 }
 
 a {
@@ -60,6 +87,10 @@ a {
 a:hover {
     cursor: pointer;
     color: var(--text-faded);
+}
+
+.small-text {
+    font-size: 1rem;
 }
 
 input {
@@ -133,4 +164,41 @@ input {
 .back-button:hover {
     cursor: pointer;
     color: var(--text-faded);
+}
+
+.title-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* UTILITIES */
+
+/* Font Size */
+.fs-16 {
+    font-size: 1rem;
+}
+
+.fs-18 {
+    font-size: 1.125rem;
+}
+
+.fs-20 {
+    font-size: 1.25rem;
+}
+
+/* Padding */
+
+.pd-10 {
+    padding: 0 10%;
+}
+
+.pd-20 {
+    padding: 0 20%;
 }

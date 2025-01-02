@@ -2,7 +2,7 @@ import React, {ReactNode, useContext, useEffect, useState, createContext} from '
 import {useLocation} from 'react-router-dom';
 
 const navStack = [
-    '/pick-activity',
+    '/pick-action',
     '/predict',
     '/reflect',
     '/past-sessions'

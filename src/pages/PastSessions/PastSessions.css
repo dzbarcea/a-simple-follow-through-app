@@ -31,6 +31,15 @@
     background-color: var(--text-main); /* Color on hover */
 }
 
+.bg-secondary {
+    color: var(--background-light);
+    background-color: var(--secondary-main);
+}
+
+.bg-secondary:hover {
+    background-color: var(--secondary-light);
+}
+
 
 .past-sessions-section {
     display: flex;

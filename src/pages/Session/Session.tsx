@@ -43,8 +43,8 @@ const Session = () => {
 
             <div className='flex-column-container-grow'>
                 <div className='session-field-display'>
-                    <h2>You chose <span style={{color: 'var(--primary-light)'}}>{sessionData?.chosenSelectionName}</span> from the following options:</h2>
-                    <p className='faded-text'>
+                    <h2>You chose <span style={{color: 'var(--secondary-light)'}}>{sessionData?.chosenSelectionName}</span> from the following options:</h2>
+                    <p className='faded-text horizontal-list'>
                         {sessionData?.selectionList.map(selection => (
                             <span key={selection.id}>{selection.name}</span>
                         ))}

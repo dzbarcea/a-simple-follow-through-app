@@ -5,7 +5,7 @@ import React, {
     useRef,
     useState
 } from 'react';
-import './ActivitySelector.css';
+import './ActionSelector.css';
 import Modal from '../../atoms/Modal/Modal';
 import Selection from './Selection';
 import {PresetType, SelectionType, useFormContext} from '../../context/FormContext';
@@ -14,7 +14,7 @@ import {faTrash} from '@fortawesome/free-solid-svg-icons/faTrash';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 
-const ActivitySelector = () => {
+const ActionSelector = () => {
     // Handles modal state for editing selections
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [currentlyEditingSelection, setCurrentlyEditingSelection] = useState<SelectionType | null>(null);
@@ -106,7 +106,7 @@ const ActivitySelector = () => {
             return;
         }
 
-        formContext.setSelectionList(selectionList => [...selectionList, { name: 'New Activity', id: uuidv4() }])
+        formContext.setSelectionList(selectionList => [...selectionList, { name: 'New Action', id: uuidv4() }])
     }
 
     const handleOpenSavePresetModal = () => {
@@ -182,7 +182,7 @@ const ActivitySelector = () => {
 
     return (
         <>
-            <form className='activity-selector'>
+            <form className='action-selector'>
                 {
                     formContext &&
                     formContext.selectionList.map(selection => {
@@ -282,4 +282,4 @@ const ActivitySelector = () => {
     );
 }
 
-export default ActivitySelector;
+export default ActionSelector;

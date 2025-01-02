@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import Header from '../components/Header/Header';
 import ProceedButton from '../atoms/Button/ProceedButton';
-import ActivitySelector from '../components/ActivitySelector/ActivitySelector';
+import ActionSelector from '../components/ActionSelector/ActionSelector';
 import {useNavContext} from '../context/NavContext';
 import {useNavigate} from 'react-router-dom';
 import {useFormContext} from '../context/FormContext';
 
 
-const PickActivity = () => {
+const PickAction = () => {
     const formContext = useFormContext();
 
     const [hasSelection, setHasSelection] = useState(false);
@@ -30,9 +30,20 @@ const PickActivity = () => {
 
     return (
         <>
-            <Header title='Pick an activity.' subtitle='Some subtitle' sectionComplete={hasSelection}/>
+            <Header
+                title='Pick an action.'
+                subtitle='List two or more things you want to do, then choose one'
+                sectionComplete={hasSelection}
+                tooltipText={
+                    <>
+                        Choosing one action out of many activates our brain's sense of agency.
+                        This is called <span style={{color: 'var(--primary-light)'}}>Voluntary Action</span>,
+                        the first step in Intentional Binding.
+                    </>
+                }
+            />
 
-            <ActivitySelector/>
+            <ActionSelector/>
 
             <div className='flex-column-container'>
                 <ProceedButton text='Predict' status={formContext?.chosenSelectionId ? 'active' : 'disabled'}
@@ -45,4 +56,4 @@ const PickActivity = () => {
     );
 }
 
-export default PickActivity;
+export default PickAction;

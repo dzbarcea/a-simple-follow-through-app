@@ -13,14 +13,7 @@ const PastSessions = () => {
     const navigate = useNavigate();
 
     const handleBackNavigation = () => {
-        if (!formContext?.chosenSelectionId) {
-            navigate('/');
-        } else if (!formContext.predictionText) {
-            navigate('/predict')
-        }
-        else {
-            navigate(-1); // Go back one page
-        }
+        navigate('/');
     }
 
     type GroupedSessions = Record<string, SessionData[]>
@@ -57,7 +50,7 @@ const PastSessions = () => {
                     {groupedSessions[date].map(session => (
                         <button
                             type='button'
-                            className='selection'
+                            className='bg-secondary selection'
                             key={session.id}
                             onClick={() => navigate(`/past-sessions/${session.id}`)}
                         >
@@ -76,12 +69,12 @@ const PastSessions = () => {
         <>
             <button type='button' className='back-button' onClick={handleBackNavigation}>
                 <FontAwesomeIcon icon={faArrowLeft} />
-                Go back
+                Back to home
             </button>
 
             <Header
                 title='Your past sessions'
-                subtitle={`These are the activities you've done so far`}
+                subtitle={`Click on a session for more details`}
                 sectionComplete={true}
                 hasNavigation={false}
             />
