@@ -11,7 +11,7 @@ const Learn = () => {
     }
 
     return (
-        <div className='bg-container content-container pd-20'>
+        <div className='scroll-container content-container'>
             <button type='button' className='back-button' onClick={handleBackNavigation}>
                 <FontAwesomeIcon icon={faArrowLeft}/>
                 Back to home
