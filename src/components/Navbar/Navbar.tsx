@@ -11,7 +11,7 @@ const Navbar = () => {
                 Learn About IB
             </a>
             <a href='/'>
-                <img className='logo' src={'/actify-logo-horizontal.svg'} alt='Actify Logo'/>
+                <img className='logo' src={'/actify-logo-horizontal-alt.svg'} alt='Actify Logo'/>
             </a>
             <a
                 className='nav-link nav-link-right'
