@@ -8,6 +8,7 @@ import FormContextProvider from './context/FormContext';
 import PastSessions from './pages/PastSessions/PastSessions';
 import Session from './pages/Session/Session';
 import Learn from './pages/Learn';
+import Navbar from './components/Navbar/Navbar';
 
 const App = () => {
     return (
@@ -17,6 +18,7 @@ const App = () => {
                     <Routes>
                         <Route path='/' element={
                             <div className='bg-container'>
+                                <Navbar />
                                 <div className='body-container'>
                                     <Outlet />
                                 </div>
