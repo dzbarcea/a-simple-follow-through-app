@@ -33,7 +33,7 @@ const Predict = () => {
     return (
         <>
             <Header
-                title='Make a prediction.'
+                title='Predict.'
                 subtitle='Predict the outcome of the action you chose'
                 sectionComplete={isSectionComplete}
                 tooltipText={

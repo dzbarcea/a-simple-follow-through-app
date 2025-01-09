@@ -15,10 +15,14 @@
     justify-content: space-between;
 
     width: 100%;
-    padding: 1rem 2rem;
+    padding: 0.75rem 2rem;
     border-radius: 2rem;
 
     background: var(--primary-dark);
+
+    @media screen and (max-width: 767px) {
+        padding: 0.5rem 1.25rem;
+    }
 }
 
 .selection:hover {
@@ -69,7 +73,7 @@
     justify-content: center;
 
     width: 100%;
-    padding: 0.625rem;
+    padding: 0.75rem;
     border-radius: 2rem;
 
     border: 4px solid var(--primary-dark);
@@ -98,9 +102,7 @@
     align-items: center;
     flex: 1;
 
-    font-size: 1.25rem;
-
-    padding: 0.625rem 2rem;
+    padding: 0.75rem 2rem;
     border-radius: 2rem;
 
     border: 4px solid var(--primary-dark);

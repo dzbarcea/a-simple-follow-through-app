@@ -51,11 +51,19 @@ b {
 
 h1 {
     font-size: 4rem;
+    
+    @media screen and (max-width: 767px) {
+        font-size: 2.125rem;
+    }
 }
 
 h2 {
     font-weight: 600;
     font-size: 2.5rem;
+
+    @media screen and (max-width: 767px) {
+        font-size: 1.75rem;
+    }
 }
 
 h3 {
@@ -73,6 +81,10 @@ h3 {
 
 p,a,button,label,input,textarea,ul,ol {
     font-size: 1.5rem;
+
+    @media screen and (max-width: 767px) {
+        font-size: 1.125rem;
+    }
 }
 
 ol, ul {
@@ -82,6 +94,10 @@ ol, ul {
 a {
     font-size: 1.125rem;
     text-decoration: none;
+
+    @media screen and (max-width: 767px) {
+        font-size: 1rem;
+    }
 }
 
 a:hover {
@@ -112,6 +128,20 @@ input {
     background-color: var(--night);
 }
 
+.scroll-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 20vw;
+    min-height: 100%;
+    background-color: var(--night);
+
+    @media screen and (max-width: 767px) {
+        padding: 2rem;
+    }
+}
+
 .body-container {
     display: flex;
     flex-direction: column;
@@ -120,8 +150,14 @@ input {
     gap: 3rem;
 
     height: 100%;
-    width: 50%;
-    padding: 7.5rem 0;
+    flex: 0.4;
+    padding: 5rem 2rem;
+
+    @media screen and (max-width: 767px) {
+        flex: 1;
+        padding: 3rem 2rem;
+        gap: 1.5rem;
+    }
 }
 
 .flex-column-container, .flex-column-container-grow {
